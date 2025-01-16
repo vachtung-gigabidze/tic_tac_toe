@@ -13,7 +13,13 @@ class SizedIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(height: size, width: size, child: Image.asset(name));
+    return SizedBox(
+        height: size,
+        width: size,
+        child: Image.asset(
+          name,
+          fit: BoxFit.scaleDown,
+        ));
   }
 }
 
@@ -22,25 +28,33 @@ class ButtonWidget extends StatelessWidget {
     super.key,
     required this.text,
     required this.icon,
+    this.height = 69,
+    this.width = 245,
+    this.color,
   });
   final Widget text;
-  final Widget icon;
+  final Widget? icon;
+  final double? height;
+  final double? width;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    var c = color ?? K.basicLightBlue;
     return SizedBox(
-      width: 245,
-      height: 69,
+      width: width,
+      height: height,
       child: CupertinoButton(
-          color: K.basicLightBlue,
+          color: c,
           borderRadius: BorderRadius.circular(30),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            // mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              icon,
-              SizedBox(
-                width: 10,
-              ),
+              if (icon != null) icon!,
+              if (icon != null)
+                SizedBox(
+                  width: 10,
+                ),
               text,
             ],
           ),
