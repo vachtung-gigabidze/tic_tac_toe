@@ -45,10 +45,11 @@ class ButtonWidget extends StatelessWidget {
       width: width,
       height: height,
       child: CupertinoButton(
+          padding: EdgeInsets.all(0),
           color: c,
           borderRadius: BorderRadius.circular(30),
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (icon != null) icon!,
               if (icon != null)
@@ -69,18 +70,21 @@ class TextWidget extends StatelessWidget {
     required this.text,
     this.size = 20,
     this.weight = FontWeight.w700,
+    this.color,
   });
 
   final dynamic text;
   final double size;
   final FontWeight weight;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
+    Color c = color ?? K.basicBlack;
     return Text(
       text,
       style: TextStyle(
-          color: K.basicBlack,
+          color: c,
           fontSize: size,
           fontFamily: '.SF UI Display',
           fontWeight: weight),

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
-import 'package:tic_tac_toe/ui/ui.dart';
 
 class SwitchWidget extends StatefulWidget {
   const SwitchWidget({super.key});
