@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(brightness: Brightness.light),
       // color: CupertinoColors.black,
       debugShowCheckedModeBanner: false,
-      home: const SelectGameScreen(),
+      home: const GameBoardScreen(),
     );
   }
 }

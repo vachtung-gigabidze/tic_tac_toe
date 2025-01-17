@@ -51,11 +51,12 @@ class ButtonWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (icon != null) icon!,
-              if (icon != null)
+              if (icon != null) ...[
+                icon!,
                 SizedBox(
                   width: 10,
-                ),
+                )
+              ],
               text,
             ],
           ),
