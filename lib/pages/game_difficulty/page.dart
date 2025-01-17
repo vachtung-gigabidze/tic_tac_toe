@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
-class SelectGameScreen extends StatelessWidget {
-  const SelectGameScreen({super.key});
+class GameDifficultyScreen extends StatelessWidget {
+  const GameDifficultyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
+        leading: SizedIcon(name: "images/back_icon.png", size: 30),
         trailing: SizedIcon(name: "images/setting_icon.png", size: 36),
       ),
       backgroundColor: K.basicBackground,
@@ -27,29 +28,11 @@ class SelectGameScreen extends StatelessWidget {
                 weight: FontWeight.bold,
               ),
               SizedBox(height: 20),
-              ButtonWidget(
-                text: TextWidget(text: "Single Player"),
-                icon: SizedIcon(
-                  name: "images/single_player_icon.png",
-                  size: 38,
-                ),
-              ),
+              ButtonWidget(text: TextWidget(text: "Easy"), icon: null),
               SizedBox(height: 20),
-              ButtonWidget(
-                text: TextWidget(text: "Two Player"),
-                icon: SizedIcon(
-                  name: "images/two_players_icon.png",
-                  size: 38,
-                ),
-              ),
+              ButtonWidget(text: TextWidget(text: "Standard"), icon: null),
               SizedBox(height: 20),
-              ButtonWidget(
-                text: TextWidget(text: "Leaderboard"),
-                icon: SizedIcon(
-                  name: "images/leaderboard.png",
-                  size: 38,
-                ),
-              ),
+              ButtonWidget(text: TextWidget(text: "Hard"), icon: null),
             ],
           ),
         ),
