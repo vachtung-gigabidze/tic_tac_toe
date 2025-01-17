@@ -28,7 +28,11 @@ class HowToPlayScreen extends StatelessWidget {
     ];
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: SizedIcon(name: "images/back_icon.png", size: 30),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedIcon(name: "assets/images/back_icon.png", size: 30)),
         middle: TextWidget(
           text: 'How To Play',
           size: 24,

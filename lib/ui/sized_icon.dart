@@ -4,12 +4,12 @@ import 'package:tic_tac_toe/constants.dart';
 class SizedIcon extends StatelessWidget {
   const SizedIcon({
     super.key,
-    this.name,
-    this.size,
+    required this.name,
+    required this.size,
   });
 
-  final name;
-  final size;
+  final String name;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,14 @@ class ButtonWidget extends StatelessWidget {
     this.height = 69,
     this.width = 245,
     this.color,
+    this.onPressed,
   });
   final Widget text;
   final Widget? icon;
   final double? height;
   final double? width;
   final Color? color;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,7 @@ class ButtonWidget extends StatelessWidget {
           padding: EdgeInsets.all(0),
           color: c,
           borderRadius: BorderRadius.circular(30),
+          onPressed: onPressed,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -59,8 +62,7 @@ class ButtonWidget extends StatelessWidget {
               ],
               text,
             ],
-          ),
-          onPressed: () {}),
+          )),
     );
   }
 }

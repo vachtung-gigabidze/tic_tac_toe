@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/pages/how_to_play/page.dart';
+import 'package:tic_tac_toe/pages/select_game/page.dart';
+import 'package:tic_tac_toe/pages/setting/page.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -9,11 +12,15 @@ class OnboardingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: SizedIcon(
-          name: "images/question_icon.png",
-          size: 36,
-        ),
-        trailing: SizedIcon(name: "images/setting_icon.png", size: 36),
+        leading: PushWidget(
+            goTo: const HowToPlayScreen(),
+            child: SizedIcon(
+              name: "assets/images/question_icon.png",
+              size: 36,
+            )),
+        trailing: PushWidget(
+            goTo: const SettingScreen(),
+            child: SizedIcon(name: "assets/images/setting_icon.png", size: 36)),
       ),
       child: Column(
         children: [
@@ -25,7 +32,7 @@ class OnboardingScreen extends StatelessWidget {
                   SizedBox(
                       height: 135,
                       width: 207,
-                      child: Image.asset("images/XO.png")),
+                      child: Image.asset("assets/images/XO.png")),
                   Text(
                     "TIC-TAC-TOE",
                     style: TextStyle(
@@ -58,7 +65,12 @@ class OnboardingScreen extends StatelessWidget {
                         fontFamily: '.SF UI Display',
                         fontWeight: FontWeight.w700),
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                          builder: (context) => const SelectGameScreen()),
+                    );
+                  }),
             ),
           ),
         ],

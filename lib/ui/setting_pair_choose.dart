@@ -38,14 +38,14 @@ class SettingPairChoice extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedIcon(
-                  name: "images/x_$element.png",
+                  name: "assets/images/x_$element.png",
                   size: 54,
                 ),
                 SizedBox(
                   width: 4,
                 ),
                 SizedIcon(
-                  name: "images/o_$element.png",
+                  name: "assets/images/o_$element.png",
                   size: 54,
                 )
               ],

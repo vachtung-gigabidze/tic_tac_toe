@@ -11,9 +11,9 @@ class ResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final results = [
-      ["Player One win!", "images/win.png"],
-      ["You Lose!", "images/lose.png"],
-      ["Draw!", "images/draw.png"],
+      ["Player One win!", "assets/images/win.png"],
+      ["You Lose!", "assets/images/lose.png"],
+      ["Draw!", "assets/images/draw.png"],
     ];
     final result = results[resultGame.index];
     return CupertinoPageScaffold(

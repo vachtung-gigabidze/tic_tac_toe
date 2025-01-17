@@ -13,9 +13,13 @@ class SettingScreen extends StatelessWidget {
     // final bool turnTime = false;
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          leading: SizedIcon(name: "images/back_icon.png", size: 30),
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: SizedIcon(name: "assets/images/back_icon.png", size: 30)),
         ),
-        backgroundColor: K.basicLightBlue,
+        backgroundColor: K.basicBackground,
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: 390),
@@ -23,7 +27,7 @@ class SettingScreen extends StatelessWidget {
               primary: false,
               slivers: <Widget>[
                 SliverPadding(
-                  padding: const EdgeInsets.only(top: 50),
+                  padding: const EdgeInsets.only(top: 110),
                   sliver: SliverToBoxAdapter(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +57,7 @@ class SettingScreen extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(8.5),
                                 child: SizedIcon(
-                                  name: "images/arrow_left.png",
+                                  name: "assets/images/arrow_left.png",
                                   size: 10,
                                 ),
                               ),

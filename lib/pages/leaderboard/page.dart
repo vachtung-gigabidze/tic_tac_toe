@@ -17,7 +17,11 @@ class LeaderboardScreen extends StatelessWidget {
     ];
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: SizedIcon(name: "images/back_icon.png", size: 30),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedIcon(name: "assets/images/back_icon.png", size: 30)),
         middle: TextWidget(
           text: 'Leaderboard',
           size: 24,
@@ -102,7 +106,7 @@ class EmptyLeaderboard extends StatelessWidget {
             height: 40,
           ),
           Image.asset(
-            "images/robot.png",
+            "assets/images/robot.png",
             height: 228,
             width: 177,
           ),

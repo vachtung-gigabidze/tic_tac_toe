@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
-
 import 'package:tic_tac_toe/ui/ui.dart';
 
 class GameBoardScreen extends StatelessWidget {
@@ -12,129 +11,131 @@ class GameBoardScreen extends StatelessWidget {
     // final bool turnTime = false;
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
-          leading: SizedIcon(name: "images/back_icon.png", size: 30),
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pop();
+              },
+              child: SizedIcon(name: "assets/images/back_icon.png", size: 30)),
         ),
         backgroundColor: K.basicBackground,
-        child: Center(
-          child: Stack(children: [
-            ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 390),
-              child: CustomScrollView(
-                primary: false,
-                slivers: <Widget>[
-                  SliverPadding(
-                    padding: const EdgeInsets.only(top: 50),
-                    sliver: SliverToBoxAdapter(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 103,
-                                width: 103,
-                                decoration: BoxDecoration(
-                                    color: K.basicLightBlue,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ImageWidget(image: "images/x_1.png"),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      TextWidget(
-                                        text: "You",
-                                        size: 16,
-                                      )
-                                    ]),
-                              ),
-                              TextWidget(
-                                text: "1:59",
-                                weight: FontWeight.bold,
-                              ),
-                              Container(
-                                height: 103,
-                                width: 103,
-                                decoration: BoxDecoration(
-                                    color: K.basicLightBlue,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ImageWidget(image: "images/o_1.png"),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      TextWidget(
-                                        text: "Player Two",
-                                        size: 16,
-                                      )
-                                    ]),
-                              ),
-                            ],
+        child: Stack(children: [
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 390),
+            child: CustomScrollView(
+              primary: false,
+              slivers: <Widget>[
+                SliverPadding(
+                  padding: const EdgeInsets.only(top: 110),
+                  sliver: SliverToBoxAdapter(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: 103,
+                              width: 103,
+                              decoration: BoxDecoration(
+                                  color: K.basicLightBlue,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ImageWidget(image: "assets/images/x_1.png"),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextWidget(
+                                      text: "You",
+                                      size: 16,
+                                    )
+                                  ]),
+                            ),
+                            TextWidget(
+                              text: "1:59",
+                              weight: FontWeight.bold,
+                            ),
+                            Container(
+                              height: 103,
+                              width: 103,
+                              decoration: BoxDecoration(
+                                  color: K.basicLightBlue,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ImageWidget(image: "assets/images/o_1.png"),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    TextWidget(
+                                      text: "Player Two",
+                                      size: 16,
+                                    )
+                                  ]),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 55,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ImageWidget(image: "assets/images/o_1.png"),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            TextWidget(text: "You turn"),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.all(44),
+                  sliver: DecoratedSliver(
+                    decoration: BoxDecoration(
+                        color: K.basicWhite,
+                        borderRadius: BorderRadius.circular(30)),
+                    sliver: SliverPadding(
+                      padding: const EdgeInsets.all(20),
+                      sliver: SliverGrid.count(
+                        crossAxisSpacing: 20,
+                        mainAxisSpacing: 20,
+                        crossAxisCount: 3,
+                        children: <Widget>[
+                          GameItem(),
+                          GameItem(
+                            select: SelectType.second,
                           ),
-                          SizedBox(
-                            height: 55,
+                          GameItem(),
+                          GameItem(
+                            select: SelectType.first,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ImageWidget(image: "images/o_1.png"),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              TextWidget(text: "You turn"),
-                            ],
+                          GameItem(
+                            select: SelectType.first,
                           ),
+                          GameItem(
+                            select: SelectType.first,
+                          ),
+                          GameItem(),
+                          GameItem(
+                            select: SelectType.second,
+                          ),
+                          GameItem(),
                         ],
                       ),
                     ),
                   ),
-                  SliverPadding(
-                    padding: const EdgeInsets.all(44),
-                    sliver: DecoratedSliver(
-                      decoration: BoxDecoration(
-                          color: K.basicWhite,
-                          borderRadius: BorderRadius.circular(30)),
-                      sliver: SliverPadding(
-                        padding: const EdgeInsets.all(20),
-                        sliver: SliverGrid.count(
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 20,
-                          crossAxisCount: 3,
-                          children: <Widget>[
-                            GameItem(),
-                            GameItem(
-                              select: SelectType.second,
-                            ),
-                            GameItem(),
-                            GameItem(
-                              select: SelectType.first,
-                            ),
-                            GameItem(
-                              select: SelectType.first,
-                            ),
-                            GameItem(
-                              select: SelectType.first,
-                            ),
-                            GameItem(),
-                            GameItem(
-                              select: SelectType.second,
-                            ),
-                            GameItem(),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            LineWidget()
-          ]),
-        ));
+          ),
+          LineWidget()
+        ]));
   }
 }
 
@@ -170,9 +171,9 @@ class GameItem extends StatelessWidget {
   Widget? content() {
     switch (select) {
       case SelectType.first:
-        return ImageWidget(image: "images/x_1.png");
+        return ImageWidget(image: "assets/images/x_1.png");
       case SelectType.second:
-        return ImageWidget(image: "images/o_1.png");
+        return ImageWidget(image: "assets/images/o_1.png");
       default:
         return null;
     }

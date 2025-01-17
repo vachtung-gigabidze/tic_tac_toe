@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/pages/pages.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
 class GameDifficultyScreen extends StatelessWidget {
@@ -9,8 +10,14 @@ class GameDifficultyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: SizedIcon(name: "images/back_icon.png", size: 30),
-        trailing: SizedIcon(name: "images/setting_icon.png", size: 36),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: SizedIcon(name: "assets/images/back_icon.png", size: 30)),
+        trailing: PushWidget(
+            goTo: const SettingScreen(),
+            child: SizedIcon(name: "assets/images/setting_icon.png", size: 36)),
       ),
       backgroundColor: K.basicBackground,
       child: Center(
@@ -28,11 +35,35 @@ class GameDifficultyScreen extends StatelessWidget {
                 weight: FontWeight.bold,
               ),
               SizedBox(height: 20),
-              ButtonWidget(text: TextWidget(text: "Easy"), icon: null),
+              ButtonWidget(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                          builder: (context) => const GameBoardScreen()),
+                    );
+                  },
+                  text: TextWidget(text: "Easy"),
+                  icon: null),
               SizedBox(height: 20),
-              ButtonWidget(text: TextWidget(text: "Standard"), icon: null),
+              ButtonWidget(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                          builder: (context) => const GameBoardScreen()),
+                    );
+                  },
+                  text: TextWidget(text: "Standard"),
+                  icon: null),
               SizedBox(height: 20),
-              ButtonWidget(text: TextWidget(text: "Hard"), icon: null),
+              ButtonWidget(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      CupertinoPageRoute(
+                          builder: (context) => const GameBoardScreen()),
+                    );
+                  },
+                  text: TextWidget(text: "Hard"),
+                  icon: null),
             ],
           ),
         ),
