@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
         theme: CupertinoThemeData(brightness: Brightness.light),
         // color: CupertinoColors.black,
         debugShowCheckedModeBanner: false,
-        // home: const LeaderboardScreen());
-        home: const OnboardingScreen());
+        home: const GameBoardScreen());
+    // home: const OnboardingScreen());
     // home: const ResultScreen(resultGame: Result.draw));
   }
 }

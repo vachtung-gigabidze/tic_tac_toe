@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
+final gameItemKey = GlobalKey();
+
 class GameBoardScreen extends StatelessWidget {
   const GameBoardScreen({super.key});
 
@@ -113,6 +115,7 @@ class GameBoardScreen extends StatelessWidget {
                           ),
                           GameItem(),
                           GameItem(
+                            key: gameItemKey,
                             select: SelectType.first,
                           ),
                           GameItem(
@@ -139,6 +142,21 @@ class GameBoardScreen extends StatelessWidget {
   }
 }
 
+//Для получения глобальных координат
+extension GlobalKeyExtension on GlobalKey {
+  Rect? get globalPaintBounds {
+    final renderObject = currentContext?.findRenderObject();
+    final matrix = renderObject?.getTransformTo(null);
+
+    if (matrix != null && renderObject?.paintBounds != null) {
+      final rect = MatrixUtils.transformRect(matrix, renderObject!.paintBounds);
+      return rect;
+    } else {
+      return null;
+    }
+  }
+}
+
 class LineWidget extends StatelessWidget {
   const LineWidget({
     super.key,
@@ -146,9 +164,10 @@ class LineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final b = gameItemKey.globalPaintBounds;
     return Positioned(
-        top: 445,
-        left: 67,
+        top: (b?.top ?? 445) + 27,
+        left: (b?.left ?? 67) + 3,
         child: Container(
           width: 255,
           height: 20,
