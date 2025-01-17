@@ -8,7 +8,7 @@ class GameBoardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final int selected = 1;
+    // final int selected = 1;
     // final bool turnTime = false;
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -16,84 +16,143 @@ class GameBoardScreen extends StatelessWidget {
         ),
         backgroundColor: K.basicBackground,
         child: Center(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 390),
-            child: CustomScrollView(
-              primary: false,
-              slivers: <Widget>[
-                SliverPadding(
-                  padding: const EdgeInsets.only(top: 50),
-                  sliver: SliverToBoxAdapter(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Column(children: [
-                              ImageWidget(image: "images/x_1.png"),
-                              SizedBox(
-                                height: 10,
+          child: Stack(children: [
+            ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: 390),
+              child: CustomScrollView(
+                primary: false,
+                slivers: <Widget>[
+                  SliverPadding(
+                    padding: const EdgeInsets.only(top: 50),
+                    sliver: SliverToBoxAdapter(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Container(
+                                height: 103,
+                                width: 103,
+                                decoration: BoxDecoration(
+                                    color: K.basicLightBlue,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ImageWidget(image: "images/x_1.png"),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextWidget(
+                                        text: "You",
+                                        size: 16,
+                                      )
+                                    ]),
                               ),
                               TextWidget(
-                                text: "You",
-                                size: 16,
-                              )
-                            ]),
-                            Column(children: [
+                                text: "1:59",
+                                weight: FontWeight.bold,
+                              ),
+                              Container(
+                                height: 103,
+                                width: 103,
+                                decoration: BoxDecoration(
+                                    color: K.basicLightBlue,
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      ImageWidget(image: "images/o_1.png"),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      TextWidget(
+                                        text: "Player Two",
+                                        size: 16,
+                                      )
+                                    ]),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 55,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
                               ImageWidget(image: "images/o_1.png"),
                               SizedBox(
-                                height: 10,
+                                width: 20,
                               ),
-                              TextWidget(
-                                text: "Player Two",
-                                size: 16,
-                              )
-                            ])
-                          ],
-                        ),
-                        SizedBox(
-                          height: 55,
-                        ),
-                        TextWidget(text: "You turn"),
-                      ],
-                    ),
-                  ),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.all(44),
-                  sliver: DecoratedSliver(
-                    decoration: BoxDecoration(
-                        color: K.basicWhite,
-                        borderRadius: BorderRadius.circular(30)),
-                    sliver: SliverPadding(
-                      padding: const EdgeInsets.all(20),
-                      sliver: SliverGrid.count(
-                        crossAxisSpacing: 20,
-                        mainAxisSpacing: 20,
-                        crossAxisCount: 3,
-                        children: <Widget>[
-                          GameItem(),
-                          GameItem(),
-                          GameItem(),
-                          GameItem(
-                            select: SelectType.first,
+                              TextWidget(text: "You turn"),
+                            ],
                           ),
-                          GameItem(),
-                          GameItem(),
-                          GameItem(),
-                          GameItem(
-                            select: SelectType.second,
-                          ),
-                          GameItem(),
                         ],
                       ),
                     ),
                   ),
-                ),
-              ],
+                  SliverPadding(
+                    padding: const EdgeInsets.all(44),
+                    sliver: DecoratedSliver(
+                      decoration: BoxDecoration(
+                          color: K.basicWhite,
+                          borderRadius: BorderRadius.circular(30)),
+                      sliver: SliverPadding(
+                        padding: const EdgeInsets.all(20),
+                        sliver: SliverGrid.count(
+                          crossAxisSpacing: 20,
+                          mainAxisSpacing: 20,
+                          crossAxisCount: 3,
+                          children: <Widget>[
+                            GameItem(),
+                            GameItem(
+                              select: SelectType.second,
+                            ),
+                            GameItem(),
+                            GameItem(
+                              select: SelectType.first,
+                            ),
+                            GameItem(
+                              select: SelectType.first,
+                            ),
+                            GameItem(
+                              select: SelectType.first,
+                            ),
+                            GameItem(),
+                            GameItem(
+                              select: SelectType.second,
+                            ),
+                            GameItem(),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
+            LineWidget()
+          ]),
+        ));
+  }
+}
+
+class LineWidget extends StatelessWidget {
+  const LineWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+        top: 445,
+        left: 67,
+        child: Container(
+          width: 255,
+          height: 20,
+          decoration: BoxDecoration(
+              color: K.basicBlue, borderRadius: BorderRadius.circular(10)),
         ));
   }
 }
