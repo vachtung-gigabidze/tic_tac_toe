@@ -12,11 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
-      title: 'TicTacToe',
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      // color: CupertinoColors.black,
-      debugShowCheckedModeBanner: false,
-      home: const GameBoardScreen(),
-    );
+        title: 'TicTacToe',
+        theme: CupertinoThemeData(brightness: Brightness.light),
+        // color: CupertinoColors.black,
+        debugShowCheckedModeBanner: false,
+        home: const HowToPlayScreen());
   }
 }
