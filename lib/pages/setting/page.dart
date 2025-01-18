@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 import 'package:tic_tac_toe/ui/ui.dart';
 
@@ -8,8 +9,9 @@ class SettingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String timeOfGame = "2:00";
+    //final String timeOfGame = "2:00";
     final int selected = 1;
+    final setting = SettingProvider.of(context)?.setting;
     // final bool turnTime = false;
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -43,7 +45,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         IconButtonWidget(
                           text: TextWidget(
-                            text: "Time for game $timeOfGame",
+                            text: "Time for game ${setting?.duration ?? 0}",
                             size: 16,
                           ),
                           icon: CupertinoActionSheetAction(
