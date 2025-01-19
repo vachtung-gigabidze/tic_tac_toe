@@ -11,7 +11,7 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     //final String timeOfGame = "2:00";
     final int selected = 1;
-    final setting = SettingProvider.of(context)?.setting;
+    final setting = SettingProvider.of(context).setting;
     // final bool turnTime = false;
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -45,7 +45,7 @@ class SettingScreen extends StatelessWidget {
                         ),
                         IconButtonWidget(
                           text: TextWidget(
-                            text: "Time for game ${setting?.duration ?? 0}",
+                            text: "Time for game ${setting.duration}",
                             size: 16,
                           ),
                           icon: CupertinoActionSheetAction(

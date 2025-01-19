@@ -12,8 +12,9 @@ class SettingProvider extends InheritedWidget {
   //   return context.dependOnInheritedWidgetOfExactType<SettingProvider>();
   // }
 
-  static SettingProvider? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<SettingProvider>();
+  static SettingProvider of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<SettingProvider>()
+        as SettingProvider;
   }
 
   @override

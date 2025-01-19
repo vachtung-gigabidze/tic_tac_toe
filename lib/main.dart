@@ -9,7 +9,7 @@ void main() async {
   // SharedPreferences preferences = await SharedPreferences.getInstance();
   // Setting s =
   // bool result = await preferences.setString("setting", s.toJson());
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,22 +18,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return CupertinoApp(
-        title: 'TicTacToe',
-        theme: CupertinoThemeData(brightness: Brightness.light),
-        // color: CupertinoColors.black,
-        debugShowCheckedModeBanner: false,
-        home: SettingProvider(
-            setting: Setting(
-                gameTime: true,
-                duration: 120,
-                musicEnable: false,
-                selectedMusic: "country.mp3",
-                player1Image: "x_1.png",
-                player2Image: "o_1.png",
-                selectedPairNumber: 1),
-            // child: const GameBoardScreen()));
-            child: const OnboardingScreen()));
+    return SettingProvider(
+        setting: Setting(
+            gameTime: true,
+            duration: 120,
+            musicEnable: false,
+            selectedMusic: "country.mp3",
+            player1Image: "x_1.png",
+            player2Image: "o_1.png",
+            selectedPairNumber: 1),
+        // child: const GameBoardScreen()));
+        child: CupertinoApp(
+            title: 'TicTacToe',
+            theme: CupertinoThemeData(brightness: Brightness.light),
+            // color: CupertinoColors.black,
+            debugShowCheckedModeBanner: false,
+            home: const OnboardingScreen()));
     // home: const ResultScreen(resultGame: Result.draw));
   }
 }
