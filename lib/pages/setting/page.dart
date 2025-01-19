@@ -39,6 +39,7 @@ class SettingScreen extends StatelessWidget {
                             text: "Turn on the time",
                             size: 16,
                           ),
+                          value: setting.gameTime,
                         ),
                         SizedBox(
                           height: 10,

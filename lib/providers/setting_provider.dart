@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tic_tac_toe/models/setting.dart';
 
@@ -20,13 +21,25 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
   late Setting setting;
 
   Future<Setting> loadSetting() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    return Setting.fromJson(jsonDecode(preferences.getString("setting")!));
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? v = preferences.getString("setting");
+      if (v != null) {
+        final s = Setting.fromJson(v);
+        return s;
+      }
+    } catch (e) {
+      print(e);
+    }
+    return setting;
   }
 
-  void saveSetting(Setting setting) async {
+  void saveSetting(Setting newSetting) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool result = await preferences.setString("setting", setting.toJson());
+    bool result = await preferences.setString("setting", newSetting.toJson());
+    setState(() {
+      setting = newSetting;
+    });
   }
 
   // bool result = await preferences.setString("setting", s.toJson());
@@ -34,7 +47,7 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
   @override
   void initState() {
     setting = Setting(
-        gameTime: true,
+        gameTime: false,
         duration: 120,
         musicEnable: false,
         selectedMusic: "country.mp3",
@@ -46,16 +59,14 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
   Widget build(BuildContext context) {
     return FutureBuilder<Setting>(
         future: loadSetting(),
-        initialData: setting,
+        //initialData: setting,
         builder: (context, AsyncSnapshot<Setting> snapshot) {
           if (!snapshot.hasData) {
-            return SettingProvider(
-              setting: setting,
-              child: widget.child,
-            );
+            return Center(child: CircularProgressIndicator());
           } else {
             final s = snapshot.data;
             return SettingProvider(
+              saveSetting: saveSetting,
               setting: s ?? setting,
               child: widget.child,
             );
@@ -65,20 +76,33 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
 }
 
 class SettingProvider extends InheritedWidget {
-  const SettingProvider({required this.setting, super.key, required this.child})
+  const SettingProvider(
+      {required this.saveSetting,
+      required this.setting,
+      super.key,
+      required this.child})
       : super(child: child);
   final Setting setting;
+  final void Function(Setting setting) saveSetting;
+
   @override
   final Widget child;
 
-  // static SettingProvider? maybeOf(BuildContext context) {
-  //   return context.dependOnInheritedWidgetOfExactType<SettingProvider>();
-  // }
-
-  static SettingProvider of(BuildContext context) {
+  static SettingProvider? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<SettingProvider>()
         as SettingProvider;
   }
+
+  static SettingProvider of(BuildContext context) {
+    final SettingProvider? result = maybeOf(context);
+    assert(result != null, 'No FrogColor found in context');
+    return result!;
+  }
+
+  // static SettingProvider of(BuildContext context) {
+  //   return context.dependOnInheritedWidgetOfExactType<SettingProvider>()
+  //       as SettingProvider;
+  // }
 
   @override
   bool updateShouldNotify(SettingProvider oldWidget) {

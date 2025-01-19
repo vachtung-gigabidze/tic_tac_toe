@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 class SwitchWidget extends StatefulWidget {
-  const SwitchWidget({super.key});
+  const SwitchWidget({super.key, required this.switchValue});
+
+  final bool switchValue;
 
   @override
   State<SwitchWidget> createState() => _CupertinoSwitchExampleState();
@@ -13,6 +16,8 @@ class _CupertinoSwitchExampleState extends State<SwitchWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final settingProvider = SettingProvider.of(context);
+    switchValue = settingProvider.setting.gameTime;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -23,6 +28,11 @@ class _CupertinoSwitchExampleState extends State<SwitchWidget> {
             onChanged: (bool? value) {
               setState(() {
                 switchValue = value ?? false;
+
+                settingProvider.setting.gameTime = value ?? false;
+                final s = settingProvider.setting;
+                s.gameTime = value ?? false;
+                settingProvider.saveSetting(s);
               });
             },
           ),
@@ -36,9 +46,11 @@ class SwitchButtonWidget extends StatelessWidget {
   const SwitchButtonWidget({
     super.key,
     required this.text,
+    required this.value,
   });
 
   final Widget text;
+  final bool value;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +73,9 @@ class SwitchButtonWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           text,
-          SwitchWidget(),
+          SwitchWidget(
+            switchValue: value,
+          ),
         ],
       ),
     );
