@@ -10,16 +10,12 @@ class Setting {
   int duration;
   bool musicEnable;
   String selectedMusic;
-  String player1Image;
-  String player2Image;
   int selectedPairNumber;
   Setting({
     required this.gameTime,
     required this.duration,
     required this.musicEnable,
     required this.selectedMusic,
-    required this.player1Image,
-    required this.player2Image,
     required this.selectedPairNumber,
   });
 
@@ -28,8 +24,6 @@ class Setting {
     int? duration,
     bool? musicEnable,
     String? selectedMusic,
-    String? player1Image,
-    String? player2Image,
     int? selectedPairNumber,
   }) {
     return Setting(
@@ -37,8 +31,6 @@ class Setting {
       duration: duration ?? this.duration,
       musicEnable: musicEnable ?? this.musicEnable,
       selectedMusic: selectedMusic ?? this.selectedMusic,
-      player1Image: player1Image ?? this.player1Image,
-      player2Image: player2Image ?? this.player2Image,
       selectedPairNumber: selectedPairNumber ?? this.selectedPairNumber,
     );
   }
@@ -49,8 +41,6 @@ class Setting {
       'duration': duration,
       'musicEnable': musicEnable,
       'selectedMusic': selectedMusic,
-      'player1Image': player1Image,
-      'player2Image': player2Image,
       'selectedPairNumber': selectedPairNumber,
     };
   }
@@ -61,8 +51,6 @@ class Setting {
       duration: map['duration'] as int,
       musicEnable: map['musicEnable'] as bool,
       selectedMusic: map['selectedMusic'] as String,
-      player1Image: map['player1Image'] as String,
-      player2Image: map['player2Image'] as String,
       selectedPairNumber: map['selectedPairNumber'] as int,
     );
   }
@@ -74,7 +62,7 @@ class Setting {
 
   @override
   String toString() {
-    return 'Setting(gameTime: $gameTime, duration: $duration, musicEnable: $musicEnable, selectedMusic: $selectedMusic, player1Image: $player1Image, player2Image: $player2Image, selectedPairNumber: $selectedPairNumber)';
+    return 'Setting(gameTime: $gameTime, duration: $duration, musicEnable: $musicEnable, selectedMusic: $selectedMusic, selectedPairNumber: $selectedPairNumber)';
   }
 
   @override
@@ -85,8 +73,6 @@ class Setting {
         other.duration == duration &&
         other.musicEnable == musicEnable &&
         other.selectedMusic == selectedMusic &&
-        other.player1Image == player1Image &&
-        other.player2Image == player2Image &&
         other.selectedPairNumber == selectedPairNumber;
   }
 
@@ -96,8 +82,6 @@ class Setting {
         duration.hashCode ^
         musicEnable.hashCode ^
         selectedMusic.hashCode ^
-        player1Image.hashCode ^
-        player2Image.hashCode ^
         selectedPairNumber.hashCode;
   }
 }

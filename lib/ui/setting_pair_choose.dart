@@ -60,7 +60,7 @@ class SettingPairChoice extends StatelessWidget {
               width: 112,
               height: 39,
               icon: null,
-              color: selected ? K.basicBlue : K.basicLightBlue,
+              color: selected ? K.basicBlack : K.basicLightBlue,
             ),
           ],
         ),
