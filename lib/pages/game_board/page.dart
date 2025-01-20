@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/models/setting.dart';
@@ -32,8 +34,8 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   SelectType priority = SelectType.first;
   late int imageIndex;
 
-  void onPressedGameItem(Key key) {
-    final index = int.parse((key as ValueKey).value);
+  void onPressedGameItem(GlobalKey key) {
+    final index = keys.indexOf(key); // int.parse((key as ValueKey).value);
     setState(() {
       if (board[index] == SelectType.none) {
         board[index] = priority;
@@ -62,17 +64,22 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
           board[combine[0]] == board[combine[2]] &&
           board[combine[0]] != SelectType.none) {
         winCombine = index;
-        if (priority == SelectType.first) {
-          Navigator.of(context).push(
-            CupertinoPageRoute(
-                builder: (context) => ResultScreen(resultGame: Result.lose)),
-          );
-        } else if (priority == SelectType.second) {
-          Navigator.of(context).push(
-            CupertinoPageRoute(
-                builder: (context) => ResultScreen(resultGame: Result.win)),
-          );
-        }
+        setState(() {
+          showWinLine = true;
+        });
+        // Timer(Duration(seconds: 3), () {
+        //   if (priority == SelectType.first) {
+        //     Navigator.of(context).push(
+        //       CupertinoPageRoute(
+        //           builder: (context) => ResultScreen(resultGame: Result.lose)),
+        //     );
+        //   } else if (priority == SelectType.second) {
+        //     Navigator.of(context).push(
+        //       CupertinoPageRoute(
+        //           builder: (context) => ResultScreen(resultGame: Result.win)),
+        //     );
+        //   }
+        // });
       }
     });
 
@@ -89,7 +96,17 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     }
   }
 
-  void drawLine() {}
+  final keys =
+      [for (var i = 0; i < 10; i += 1) i].map((e) => GlobalKey()).toList();
+
+  Widget drawLine() {
+    // winCombine
+    final rect = keys[0].globalPaintBounds;
+    if (rect != null) {
+      return LineWidget(top: rect.top, left: rect.left);
+    }
+    return LineWidget(top: 0, left: 0);
+  }
 
   @override
   void initState() {
@@ -107,7 +124,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
             onPressed: onPressedGameItem,
             select: element,
             imageIndex: imageIndex,
-            key: ValueKey("$index")))
+            key: keys[index]))
         .toList();
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -225,7 +242,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                 ],
               ),
             ),
-            if (showWinLine) LineWidget()
+            if (showWinLine) drawLine()
           ]),
         ));
   }
@@ -249,21 +266,30 @@ extension GlobalKeyExtension on GlobalKey {
 class LineWidget extends StatelessWidget {
   const LineWidget({
     super.key,
+    required this.top,
+    required this.left,
   });
+  final double top;
+  final double left;
 
   @override
   Widget build(BuildContext context) {
-    final b = gameItemKey.globalPaintBounds;
+    //final b = gameItemKey.globalPaintBounds;
 
     return Positioned(
-        top: (b?.top ?? 445) + 58,
-        left: (b?.left ?? 67) + 3,
-        child: Container(
-          width: 255,
-          height: 20,
-          decoration: BoxDecoration(
-              color: K.basicBlue, borderRadius: BorderRadius.circular(10)),
-        ));
+      top: (top) + 27,
+      left: (left) - 55,
+      child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: 0, end: 255),
+          duration: const Duration(seconds: 1),
+          builder: (context, value, child) => Container(
+                width: value,
+                height: 20,
+                decoration: BoxDecoration(
+                    color: K.basicBlue,
+                    borderRadius: BorderRadius.circular(10)),
+              )),
+    );
   }
 }
 
@@ -279,7 +305,7 @@ class GameItem extends StatelessWidget {
 
   final SelectType select;
   final int imageIndex;
-  final void Function(Key key) onPressed;
+  final void Function(GlobalKey key) onPressed;
 
   Widget? content() {
     switch (select) {
@@ -295,7 +321,7 @@ class GameItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onPressed(super.key!),
+      onTap: () => onPressed(super.key! as GlobalKey),
       child: Container(
           height: 74,
           width: 74,
