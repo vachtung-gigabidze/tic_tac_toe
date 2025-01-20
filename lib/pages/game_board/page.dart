@@ -47,7 +47,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
       if (board[index] == SelectType.none) {
         board[index] = priority;
 
-        if (checkBoard()) {
+        if (checkBoard() || drawBoard()) {
           goToResult(priority);
         } else {
           priority = (priority == SelectType.first)
@@ -68,7 +68,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
             //ai move
             int m = ai.move(board, availableMove());
             //print(m);
-            if (checkBoard()) {
+            if (checkBoard() || drawBoard()) {
               goToResult(priority);
             } else {
               priority = (priority == SelectType.first)
@@ -115,19 +115,18 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     return showWinLine;
   }
 
+  bool drawBoard() {
+    return (board
+        .where((
+          x,
+        ) =>
+            x == SelectType.none)
+        .isEmpty);
+  }
+
   goToResult(SelectType howWin) {
     Timer(Duration(seconds: 2), () {
-      if (howWin == SelectType.second) {
-        Navigator.of(context).push(
-          CupertinoPageRoute(
-              builder: (context) => ResultScreen(resultGame: Result.lose)),
-        );
-      } else if (howWin == SelectType.first) {
-        Navigator.of(context).push(
-          CupertinoPageRoute(
-              builder: (context) => ResultScreen(resultGame: Result.win)),
-        );
-      } else if (board
+      if (board
           .where((
             x,
           ) =>
@@ -136,6 +135,16 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         Navigator.of(context).push(
           CupertinoPageRoute(
               builder: (context) => ResultScreen(resultGame: Result.draw)),
+        );
+      } else if (howWin == SelectType.second) {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+              builder: (context) => ResultScreen(resultGame: Result.lose)),
+        );
+      } else if (howWin == SelectType.first) {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+              builder: (context) => ResultScreen(resultGame: Result.win)),
         );
       }
     });
