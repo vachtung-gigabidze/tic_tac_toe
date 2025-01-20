@@ -18,7 +18,7 @@ class MiniMaxAi {
         }
       }
     }
-    print(bestMove);
+    //print(bestMove);
     // if (availablePositions.length > 4)
     board[bestMove] = SelectType.second;
     return checkCount;

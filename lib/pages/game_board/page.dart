@@ -53,20 +53,32 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
           priority = (priority == SelectType.first)
               ? SelectType.second
               : SelectType.first;
+          aiMove();
         }
       }
     });
+  }
 
-    // //Ход ИИ
-    // if (widget.gameMode == GameMode.singlePlayer) {
-    //   Future.delayed(Duration(seconds: 1));
-    //   //ai move
-    //   int m = ai.move(board, availableMove());
-    //   print(m);
-    //   priority =
-    //       (priority == SelectType.first) ? SelectType.second : SelectType.first;
-    //   checkBoard();
-    // }
+  void aiMove() {
+    //Ход ИИ
+    if (widget.gameMode == GameMode.singlePlayer) {
+      Future.delayed(Duration(seconds: 1)).then(
+        (value) {
+          setState(() {
+            //ai move
+            int m = ai.move(board, availableMove());
+            //print(m);
+            if (checkBoard()) {
+              goToResult(priority);
+            } else {
+              priority = (priority == SelectType.first)
+                  ? SelectType.second
+                  : SelectType.first;
+            }
+          });
+        },
+      );
+    }
   }
 
   availableMove() {
