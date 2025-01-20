@@ -24,11 +24,13 @@ class MyApp extends StatelessWidget {
 
         // child: const GameBoardScreen()));
         child: CupertinoApp(
-            title: 'TicTacToe',
-            theme: CupertinoThemeData(brightness: Brightness.light),
-            // color: CupertinoColors.black,
-            debugShowCheckedModeBanner: false,
-            home: const OnboardingScreen()));
+      title: 'TicTacToe',
+      theme: CupertinoThemeData(brightness: Brightness.light),
+      // color: CupertinoColors.black,
+      debugShowCheckedModeBanner: false,
+      home: const GameBoardScreen(),
+      // home: const OnboardingScreen(),
+    ));
     // home: const ResultScreen(resultGame: Result.draw));
   }
 }
