@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/models/minimax_ai.dart';
 import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';
@@ -11,7 +12,9 @@ import 'package:collection/collection.dart';
 final gameItemKey = GlobalKey();
 
 class GameBoardScreen extends StatefulWidget {
-  const GameBoardScreen({super.key});
+  const GameBoardScreen({super.key, this.gameMode = GameMode.singlePlayer});
+
+  final GameMode gameMode;
 
   @override
   State<GameBoardScreen> createState() => _GameBoardScreenState();
@@ -34,6 +37,8 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   SelectType priority = SelectType.first;
   late int imageIndex;
 
+  MiniMaxAi ai = MiniMaxAi();
+
   void onPressedGameItem(GlobalKey key) {
     final index = keys.indexOf(key); // int.parse((key as ValueKey).value);
     setState(() {
@@ -45,6 +50,22 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
       }
     });
     checkBoard();
+
+    if (widget.gameMode == GameMode.singlePlayer) {
+      //ai move
+      int m = ai.move(board, availableMove());
+      priority =
+          (priority == SelectType.first) ? SelectType.second : SelectType.first;
+      checkBoard();
+    }
+  }
+
+  availableMove() {
+    var retValue = <int>[];
+    board.asMap().forEach((index, value) {
+      if (value == SelectType.none) retValue.add(index);
+    });
+    return retValue;
   }
 
   final winCombines = [
@@ -67,19 +88,19 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         setState(() {
           showWinLine = true;
         });
-        // Timer(Duration(seconds: 3), () {
-        //   if (priority == SelectType.first) {
-        //     Navigator.of(context).push(
-        //       CupertinoPageRoute(
-        //           builder: (context) => ResultScreen(resultGame: Result.lose)),
-        //     );
-        //   } else if (priority == SelectType.second) {
-        //     Navigator.of(context).push(
-        //       CupertinoPageRoute(
-        //           builder: (context) => ResultScreen(resultGame: Result.win)),
-        //     );
-        //   }
-        // });
+        Timer(Duration(seconds: 3), () {
+          if (priority == SelectType.first) {
+            Navigator.of(context).push(
+              CupertinoPageRoute(
+                  builder: (context) => ResultScreen(resultGame: Result.lose)),
+            );
+          } else if (priority == SelectType.second) {
+            Navigator.of(context).push(
+              CupertinoPageRoute(
+                  builder: (context) => ResultScreen(resultGame: Result.win)),
+            );
+          }
+        });
       }
     });
 
@@ -100,12 +121,47 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
       [for (var i = 0; i < 10; i += 1) i].map((e) => GlobalKey()).toList();
 
   Widget drawLine() {
-    // winCombine
-    final rect = keys[0].globalPaintBounds;
-    if (rect != null) {
-      return LineWidget(top: rect.top, left: rect.left);
+    Rect? rect;
+    GrowDirection direction = GrowDirection.horizontal;
+    switch (winCombine) {
+      case 0:
+        rect = keys[0].globalPaintBounds;
+        direction = GrowDirection.horizontal;
+        break;
+      case 1:
+        rect = keys[3].globalPaintBounds;
+        direction = GrowDirection.horizontal;
+        break;
+      case 2:
+        rect = keys[6].globalPaintBounds;
+        direction = GrowDirection.horizontal;
+        break;
+      case 3:
+        rect = keys[0].globalPaintBounds;
+        direction = GrowDirection.vertical;
+        break;
+      case 4:
+        rect = keys[1].globalPaintBounds;
+        direction = GrowDirection.vertical;
+        break;
+      case 5:
+        rect = keys[2].globalPaintBounds;
+        direction = GrowDirection.vertical;
+        break;
+      case 6:
+        rect = keys[0].globalPaintBounds;
+        direction = GrowDirection.diagonal;
+        break;
+      case 7:
+        rect = keys[2].globalPaintBounds;
+        direction = GrowDirection.diagonal;
+        break;
     }
-    return LineWidget(top: 0, left: 0);
+
+    if (rect != null) {
+      return LineWidget(direction: direction, top: rect.top, left: rect.left);
+    }
+    return LineWidget(direction: direction, top: 0, left: 0);
   }
 
   @override
@@ -263,28 +319,32 @@ extension GlobalKeyExtension on GlobalKey {
   }
 }
 
+enum GrowDirection { horizontal, vertical, diagonal }
+
 class LineWidget extends StatelessWidget {
   const LineWidget({
     super.key,
     required this.top,
     required this.left,
+    required this.direction,
   });
   final double top;
   final double left;
+  final GrowDirection direction;
 
   @override
   Widget build(BuildContext context) {
     //final b = gameItemKey.globalPaintBounds;
 
     return Positioned(
-      top: (top) + 27,
-      left: (left) - 55,
+      top: (top) + (direction == GrowDirection.horizontal ? 27 : 0),
+      left: (left) - (direction == GrowDirection.horizontal ? 55 : 27),
       child: TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: 0, end: 255),
           duration: const Duration(seconds: 1),
           builder: (context, value, child) => Container(
-                width: value,
-                height: 20,
+                width: direction == GrowDirection.horizontal ? value : 20,
+                height: direction == GrowDirection.horizontal ? 20 : value,
                 decoration: BoxDecoration(
                     color: K.basicBlue,
                     borderRadius: BorderRadius.circular(10)),

@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/pages/game_board/page.dart';
+import 'package:tic_tac_toe/pages/select_game/page.dart';
 
 enum Result { win, lose, draw }
 
@@ -63,7 +65,12 @@ class ResultScreen extends StatelessWidget {
                             fontFamily: '.SF UI Display',
                             fontWeight: FontWeight.w700),
                       ),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          CupertinoPageRoute(
+                              builder: (context) => const GameBoardScreen()),
+                        );
+                      }),
                 ),
                 SizedBox(
                   height: 12,
@@ -89,7 +96,13 @@ class ResultScreen extends StatelessWidget {
                                 fontFamily: '.SF UI Display',
                                 fontWeight: FontWeight.w700),
                           ),
-                          onPressed: () {}),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              CupertinoPageRoute(
+                                  builder: (context) =>
+                                      const SelectGameScreen()),
+                            );
+                          }),
                     ),
                   ),
                 ),
