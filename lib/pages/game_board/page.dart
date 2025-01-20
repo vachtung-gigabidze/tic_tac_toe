@@ -116,7 +116,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   }
 
   goToResult(SelectType howWin) {
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 2), () {
       if (howWin == SelectType.second) {
         Navigator.of(context).push(
           CupertinoPageRoute(
@@ -366,7 +366,7 @@ class LineWidget extends StatelessWidget {
       left: (left) - (direction == GrowDirection.horizontal ? 55 : 27),
       child: TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: 0, end: 255),
-          duration: const Duration(seconds: 1),
+          duration: const Duration(milliseconds: 500),
           builder: (context, value, child) => Container(
                 width: direction == GrowDirection.horizontal ? value : 20,
                 height: direction == GrowDirection.horizontal ? 20 : value,
