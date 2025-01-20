@@ -173,13 +173,14 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         direction = GrowDirection.vertical;
         break;
       case 6:
-        rect = keys[0].globalPaintBounds;
-        direction = GrowDirection.diagonal;
-        break;
+        return DiagonalLineWidget(
+          angle: 0.785398,
+        );
+
       case 7:
-        rect = keys[2].globalPaintBounds;
-        direction = GrowDirection.diagonal;
-        break;
+        return DiagonalLineWidget(
+          angle: 2.35619,
+        );
     }
 
     if (rect != null) {
@@ -322,7 +323,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                 ],
               ),
             ),
-            if (showWinLine) drawLine()
+            if (showWinLine) drawLine(),
           ]),
         ));
   }
@@ -343,7 +344,7 @@ extension GlobalKeyExtension on GlobalKey {
   }
 }
 
-enum GrowDirection { horizontal, vertical, diagonal }
+enum GrowDirection { horizontal, vertical, diagonalLeft, diagonalRight }
 
 class LineWidget extends StatelessWidget {
   const LineWidget({
@@ -373,6 +374,44 @@ class LineWidget extends StatelessWidget {
                     color: K.basicBlue,
                     borderRadius: BorderRadius.circular(10)),
               )),
+    );
+  }
+}
+
+class DiagonalLineWidget extends StatelessWidget {
+  const DiagonalLineWidget({
+    super.key,
+    required this.angle,
+    // required this.top,
+    // required this.left,
+    // required this.direction,
+  });
+  // final double top;
+  // final double left;
+  // final GrowDirection direction;
+  final double angle;
+
+  @override
+  Widget build(BuildContext context) {
+    //final b = gameItemKey.globalPaintBounds;
+
+    return Positioned(
+      // top: 505,
+      // left: 22,
+      top: 505,
+      left: 22,
+      child: Transform.rotate(
+        angle: angle, // ,
+        child: Container(
+          width: 340,
+          height: 20,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [K.basicBlue, K.secondaryPink]),
+            color: K.basicBlue,
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
     );
   }
 }
