@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
@@ -39,7 +40,10 @@ class GameDifficultyScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       CupertinoPageRoute(
-                          builder: (context) => const GameBoardScreen()),
+                          builder: (context) => const GameBoardScreen(
+                                gameMode: GameMode.singlePlayer,
+                                gameDifficulty: GameDifficulty.easy,
+                              )),
                     );
                   },
                   text: TextWidget(text: "Easy"),
@@ -49,17 +53,23 @@ class GameDifficultyScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       CupertinoPageRoute(
-                          builder: (context) => const GameBoardScreen()),
+                          builder: (context) => const GameBoardScreen(
+                                gameMode: GameMode.singlePlayer,
+                                gameDifficulty: GameDifficulty.normal,
+                              )),
                     );
                   },
-                  text: TextWidget(text: "Standard"),
+                  text: TextWidget(text: "Normal"),
                   icon: null),
               SizedBox(height: 20),
               ButtonWidget(
                   onPressed: () {
                     Navigator.of(context).push(
                       CupertinoPageRoute(
-                          builder: (context) => const GameBoardScreen()),
+                          builder: (context) => const GameBoardScreen(
+                                gameMode: GameMode.singlePlayer,
+                                gameDifficulty: GameDifficulty.hard,
+                              )),
                     );
                   },
                   text: TextWidget(text: "Hard"),

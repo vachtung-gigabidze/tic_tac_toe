@@ -12,9 +12,11 @@ import 'package:collection/collection.dart';
 final gameItemKey = GlobalKey();
 
 class GameBoardScreen extends StatefulWidget {
-  const GameBoardScreen({super.key, this.gameMode = GameMode.singlePlayer});
+  const GameBoardScreen(
+      {super.key, required this.gameMode, required this.gameDifficulty});
 
   final GameMode gameMode;
+  final GameDifficulty gameDifficulty;
 
   @override
   State<GameBoardScreen> createState() => _GameBoardScreenState();
@@ -44,20 +46,27 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     setState(() {
       if (board[index] == SelectType.none) {
         board[index] = priority;
-        priority = (priority == SelectType.first)
-            ? SelectType.second
-            : SelectType.first;
+
+        if (checkBoard()) {
+          goToResult(priority);
+        } else {
+          priority = (priority == SelectType.first)
+              ? SelectType.second
+              : SelectType.first;
+        }
       }
     });
-    checkBoard();
 
-    if (widget.gameMode == GameMode.singlePlayer) {
-      //ai move
-      int m = ai.move(board, availableMove());
-      priority =
-          (priority == SelectType.first) ? SelectType.second : SelectType.first;
-      checkBoard();
-    }
+    // //Ход ИИ
+    // if (widget.gameMode == GameMode.singlePlayer) {
+    //   Future.delayed(Duration(seconds: 1));
+    //   //ai move
+    //   int m = ai.move(board, availableMove());
+    //   print(m);
+    //   priority =
+    //       (priority == SelectType.first) ? SelectType.second : SelectType.first;
+    //   checkBoard();
+    // }
   }
 
   availableMove() {
@@ -65,6 +74,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     board.asMap().forEach((index, value) {
       if (value == SelectType.none) retValue.add(index);
     });
+    print(retValue);
     return retValue;
   }
 
@@ -79,7 +89,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     [2, 4, 6]
   ];
 
-  void checkBoard() {
+  bool checkBoard() {
     winCombines.asMap().forEach((index, combine) {
       if (board[combine[0]] == board[combine[1]] &&
           board[combine[0]] == board[combine[2]] &&
@@ -88,33 +98,35 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         setState(() {
           showWinLine = true;
         });
-        Timer(Duration(seconds: 3), () {
-          if (priority == SelectType.first) {
-            Navigator.of(context).push(
-              CupertinoPageRoute(
-                  builder: (context) => ResultScreen(resultGame: Result.lose)),
-            );
-          } else if (priority == SelectType.second) {
-            Navigator.of(context).push(
-              CupertinoPageRoute(
-                  builder: (context) => ResultScreen(resultGame: Result.win)),
-            );
-          }
-        });
       }
     });
+    return showWinLine;
+  }
 
-    if (board
-        .where((
-          x,
-        ) =>
-            x == SelectType.none)
-        .isEmpty) {
-      Navigator.of(context).push(
-        CupertinoPageRoute(
-            builder: (context) => ResultScreen(resultGame: Result.draw)),
-      );
-    }
+  goToResult(SelectType howWin) {
+    Timer(Duration(seconds: 3), () {
+      if (howWin == SelectType.second) {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+              builder: (context) => ResultScreen(resultGame: Result.lose)),
+        );
+      } else if (howWin == SelectType.first) {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+              builder: (context) => ResultScreen(resultGame: Result.win)),
+        );
+      } else if (board
+          .where((
+            x,
+          ) =>
+              x == SelectType.none)
+          .isEmpty) {
+        Navigator.of(context).push(
+          CupertinoPageRoute(
+              builder: (context) => ResultScreen(resultGame: Result.draw)),
+        );
+      }
+    });
   }
 
   final keys =

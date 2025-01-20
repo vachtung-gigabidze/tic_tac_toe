@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/game_board/page.dart';
 import 'package:tic_tac_toe/pages/select_game/page.dart';
 
@@ -68,7 +69,10 @@ class ResultScreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.of(context).push(
                           CupertinoPageRoute(
-                              builder: (context) => const GameBoardScreen()),
+                              builder: (context) => const GameBoardScreen(
+                                    gameMode: GameMode.singlePlayer,
+                                    gameDifficulty: GameDifficulty.easy,
+                                  )),
                         );
                       }),
                 ),

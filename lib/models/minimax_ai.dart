@@ -6,7 +6,7 @@ class MiniMaxAi {
   int move(board, availablePositions) {
     int bestScore = -999999999;
     int bestMove = 0;
-    int checkCount = 0;
+    int checkCount = -1;
     for (int i = 0; i < board.length; i++) {
       if (board[i] == SelectType.none) {
         board[i] = SelectType.second;
@@ -18,15 +18,16 @@ class MiniMaxAi {
         }
       }
     }
-    //print(checkCount);
-    if (availablePositions.length > 4) board[bestMove] = SelectType.second;
+    print(bestMove);
+    // if (availablePositions.length > 4)
+    board[bestMove] = SelectType.second;
     return checkCount;
   }
 
   var scores = {
     SelectType.first: -10,
     SelectType.second: 10,
-    // 'DRAW': 0,
+    SelectType.none: 0,
   };
 
   minimax(board, depth, isMaximizingPlayer) {
@@ -132,7 +133,8 @@ class MiniMaxAi {
       if (board[i] != SelectType.none) spot++;
     }
 
-    // if (spot == 0 && tempWinner == SelectType) tempWinner = 'DRAW';
+    if (spot == 0 && tempWinner == SelectType.none)
+      tempWinner = SelectType.none;
 
     return tempWinner;
   }

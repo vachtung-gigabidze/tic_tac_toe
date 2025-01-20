@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
@@ -49,7 +50,10 @@ class SelectGameScreen extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     CupertinoPageRoute(
-                        builder: (context) => const GameBoardScreen()),
+                        builder: (context) => const GameBoardScreen(
+                              gameMode: GameMode.twoPlayer,
+                              gameDifficulty: GameDifficulty.easy,
+                            )),
                   );
                 },
                 text: TextWidget(text: "Two Player"),
