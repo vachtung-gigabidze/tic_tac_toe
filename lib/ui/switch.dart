@@ -13,10 +13,9 @@ class SwitchWidget extends StatefulWidget {
 }
 
 class _CupertinoSwitchExampleState extends State<SwitchWidget> {
-  bool switchValue = true;
-
   @override
   Widget build(BuildContext context) {
+    bool switchValue = widget.switchValue;
     //final settingProvider = SettingProvider.of(context);
     //switchValue = settingProvider.setting.gameTime;
     return Center(
@@ -27,15 +26,15 @@ class _CupertinoSwitchExampleState extends State<SwitchWidget> {
             value: switchValue,
             activeTrackColor: K.basicBlue,
             onChanged: (bool? value) {
+              // setState(() {
+              switchValue = value ?? false;
               widget.onChange(value ?? false);
-              setState(() {
-                switchValue = value ?? false;
 
-                //   settingProvider.setting.gameTime = value ?? false;
-                //   final s = settingProvider.setting;
-                //   s.gameTime = value ?? false;
-                //   settingProvider.saveSetting(s);
-              });
+              //   settingProvider.setting.gameTime = value ?? false;
+              //   final s = settingProvider.setting;
+              //   s.gameTime = value ?? false;
+              //   settingProvider.saveSetting(s);
+              // });
             },
           ),
         ],

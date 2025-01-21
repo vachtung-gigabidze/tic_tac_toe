@@ -105,6 +105,7 @@ class ResultScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context)
                               ..pop()
+                              ..pop()
                               ..pop();
                             // Navigator.of(context).push(
                             //   CupertinoPageRoute(

@@ -47,10 +47,12 @@ class _SettingScreenState extends State<SettingScreen> {
                           ),
                           value: setting.gameTime,
                           onChange: (bool value) {
-                            settingProvider.setting.gameTime = value ?? false;
-                            final s = settingProvider.setting;
-                            s.gameTime = value ?? false;
-                            settingProvider.saveSetting(s);
+                            setState(() {
+                              setting.gameTime = value;
+                              final s = settingProvider.setting;
+                              s.gameTime = value;
+                              settingProvider.saveSetting(s);
+                            });
                           },
                         ),
                         SizedBox(

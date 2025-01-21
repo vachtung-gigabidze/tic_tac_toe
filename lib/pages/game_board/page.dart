@@ -62,7 +62,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   void aiMove() {
     //Ход ИИ
     if (widget.gameMode == GameMode.singlePlayer) {
-      Future.delayed(Duration(seconds: 1)).then(
+      Future.delayed(Duration(microseconds: 100)).then(
         (value) {
           setState(() {
             //ai move
@@ -138,11 +138,12 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   goToResult(SelectType howWin) {
     Timer(Duration(seconds: 2), () {
       if (board
-          .where((
-            x,
-          ) =>
-              x == SelectType.none)
-          .isEmpty) {
+              .where((
+                x,
+              ) =>
+                  x == SelectType.none)
+              .isEmpty &&
+          winCombine == -1) {
         Navigator.of(context).push(
           CupertinoPageRoute(
               builder: (context) => ResultScreen(
@@ -286,10 +287,11 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                                       )
                                     ]),
                               ),
-                              TextWidget(
-                                text: "1:59",
-                                weight: FontWeight.bold,
-                              ),
+                              if (setting.gameTime)
+                                TextWidget(
+                                  text: '${setting.duration}',
+                                  weight: FontWeight.bold,
+                                ),
                               Container(
                                 height: 103,
                                 width: 103,
