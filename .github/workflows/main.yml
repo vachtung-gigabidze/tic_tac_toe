@@ -1,24 +1,19 @@
-name: Build and distribute
-
+name: Flutter Web
 on:
   push:
     branches:
       - main
-
 jobs:
   build:
-    name: build
+    name: Build Web
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: cedvdb/action-flutter-build-web@v1
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
         with:
-          build-cmd: flutter build web --release
-          working-directory: ./
-
-      - name: Archive Production artifact
-        uses: actions/upload-artifact@v2
+          flutter-version: '3.27.2'
+          channel: 'stable'
+      - uses: bluefireteam/flutter-gh-pages@v7   
         with:
-          name: release
-          path: build/web
+          webRenderer: canvaskit
+          baseHref: /tictactoe/
