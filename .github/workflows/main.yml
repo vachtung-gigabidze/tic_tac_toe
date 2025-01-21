@@ -15,5 +15,4 @@ jobs:
           channel: 'stable'
       - uses: bluefireteam/flutter-gh-pages@v7   
         with:
-          webRenderer: canvaskit
-          baseHref: /tictactoe/
+          webRenderer: canvaskit         
