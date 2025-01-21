@@ -1,9 +1,30 @@
+import 'dart:math';
+
+import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/game_board/page.dart';
 
 class MiniMaxAi {
   int checkCount = 0;
 
-  int move(board, availablePositions) {
+  int move(board, List<int> availablePositions, GameDifficulty gameDifficulty) {
+    if (gameDifficulty == GameDifficulty.easy) {
+      var rndNum = Random().nextInt(availablePositions.length);
+      board[availablePositions[rndNum]] = SelectType.second;
+      return checkCount;
+    }
+
+    if (gameDifficulty == GameDifficulty.normal) {
+      var rndNum = Random().nextInt(10);
+
+      if (rndNum > 7) {
+        //Тупой
+        rndNum = Random().nextInt(availablePositions.length);
+
+        board[availablePositions[rndNum]] = SelectType.second;
+        return checkCount;
+      }
+    }
+
     int bestScore = -999999999;
     int bestMove = 0;
     checkCount = 0;

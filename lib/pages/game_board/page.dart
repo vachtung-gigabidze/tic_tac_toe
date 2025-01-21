@@ -66,7 +66,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         (value) {
           setState(() {
             //ai move
-            int m = ai.move(board, availableMove());
+            int m = ai.move(board, availableMove(), widget.gameDifficulty);
             //print(m);
             if (checkBoard() || drawBoard()) {
               goToResult(priority);
@@ -86,7 +86,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     board.asMap().forEach((index, value) {
       if (value == SelectType.none) retValue.add(index);
     });
-    print(retValue);
+
     return retValue;
   }
 
@@ -124,6 +124,17 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         .isEmpty);
   }
 
+  void playAgain() {
+    Navigator.of(context)
+      ..pop()
+      ..pop();
+    Navigator.of(context).push(CupertinoPageRoute(
+        builder: (context) => GameBoardScreen(
+              gameMode: widget.gameMode,
+              gameDifficulty: widget.gameDifficulty,
+            )));
+  }
+
   goToResult(SelectType howWin) {
     Timer(Duration(seconds: 2), () {
       if (board
@@ -134,17 +145,20 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
           .isEmpty) {
         Navigator.of(context).push(
           CupertinoPageRoute(
-              builder: (context) => ResultScreen(resultGame: Result.draw)),
+              builder: (context) => ResultScreen(
+                  onPlayAgain: playAgain, resultGame: Result.draw)),
         );
       } else if (howWin == SelectType.second) {
         Navigator.of(context).push(
           CupertinoPageRoute(
-              builder: (context) => ResultScreen(resultGame: Result.lose)),
+              builder: (context) => ResultScreen(
+                  onPlayAgain: playAgain, resultGame: Result.lose)),
         );
       } else if (howWin == SelectType.first) {
         Navigator.of(context).push(
           CupertinoPageRoute(
-              builder: (context) => ResultScreen(resultGame: Result.win)),
+              builder: (context) =>
+                  ResultScreen(onPlayAgain: playAgain, resultGame: Result.win)),
         );
       }
     });

@@ -7,9 +7,11 @@ import 'package:tic_tac_toe/pages/select_game/page.dart';
 enum Result { win, lose, draw }
 
 class ResultScreen extends StatelessWidget {
-  const ResultScreen({super.key, required this.resultGame});
+  const ResultScreen(
+      {super.key, required this.resultGame, required this.onPlayAgain});
 
   final Result resultGame;
+  final VoidCallback onPlayAgain;
 
   @override
   Widget build(BuildContext context) {
@@ -59,22 +61,25 @@ class ResultScreen extends StatelessWidget {
                       sizeStyle: CupertinoButtonSize.large,
                       color: K.basicBlue,
                       borderRadius: BorderRadius.circular(36),
+                      onPressed: onPlayAgain,
                       child: Text(
                         "Play again",
                         style: TextStyle(
                             color: K.basicWhite,
                             fontFamily: '.SF UI Display',
                             fontWeight: FontWeight.w700),
+                      )
+                      //  () {
+                      //   Navigator.of(context).pop();
+                      //   // Navigator.of(context).push(
+                      //   //   CupertinoPageRoute(
+                      //   //       builder: (context) => const GameBoardScreen(
+                      //   //             gameMode: GameMode.singlePlayer,
+                      //   //             gameDifficulty: GameDifficulty.easy,
+                      //   //           )),
+                      //   //);
+                      // }
                       ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          CupertinoPageRoute(
-                              builder: (context) => const GameBoardScreen(
-                                    gameMode: GameMode.singlePlayer,
-                                    gameDifficulty: GameDifficulty.easy,
-                                  )),
-                        );
-                      }),
                 ),
                 SizedBox(
                   height: 12,
@@ -101,11 +106,14 @@ class ResultScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w700),
                           ),
                           onPressed: () {
-                            Navigator.of(context).push(
-                              CupertinoPageRoute(
-                                  builder: (context) =>
-                                      const SelectGameScreen()),
-                            );
+                            Navigator.of(context)
+                              ..pop()
+                              ..pop();
+                            // Navigator.of(context).push(
+                            //   CupertinoPageRoute(
+                            //       builder: (context) =>
+                            //           const SelectGameScreen()),
+                            // );
                           }),
                     ),
                   ),
