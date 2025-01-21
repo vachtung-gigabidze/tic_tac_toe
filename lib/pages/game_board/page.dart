@@ -66,7 +66,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         (value) {
           setState(() {
             //ai move
-            int m = ai.move(board, availableMove(), widget.gameDifficulty);
+            ai.move(board, availableMove(), widget.gameDifficulty);
             //print(m);
             if (checkBoard() || drawBoard()) {
               goToResult(priority);
@@ -164,35 +164,44 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     });
   }
 
+  final linesCoord = [
+    <double>[386, 119],
+    <double>[480, 119],
+    <double>[574, 119],
+    <double>[386, 119],
+    <double>[386, 119],
+    <double>[386, 307],
+  ];
+
   final keys =
       [for (var i = 0; i < 10; i += 1) i].map((e) => GlobalKey()).toList();
 
   Widget drawLine() {
-    Rect? rect;
+    late List<double> rect;
     GrowDirection direction = GrowDirection.horizontal;
     switch (winCombine) {
       case 0:
-        rect = keys[0].globalPaintBounds;
+        rect = rect = linesCoord[winCombine];
         direction = GrowDirection.horizontal;
         break;
       case 1:
-        rect = keys[3].globalPaintBounds;
+        rect = rect = linesCoord[winCombine];
         direction = GrowDirection.horizontal;
         break;
       case 2:
-        rect = keys[6].globalPaintBounds;
+        rect = rect = linesCoord[winCombine];
         direction = GrowDirection.horizontal;
         break;
       case 3:
-        rect = keys[0].globalPaintBounds;
+        rect = rect = linesCoord[winCombine];
         direction = GrowDirection.vertical;
         break;
       case 4:
-        rect = keys[1].globalPaintBounds;
+        rect = rect = linesCoord[winCombine];
         direction = GrowDirection.vertical;
         break;
       case 5:
-        rect = keys[2].globalPaintBounds;
+        rect = rect = linesCoord[winCombine];
         direction = GrowDirection.vertical;
         break;
       case 6:
@@ -204,12 +213,12 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         return DiagonalLineWidget(
           angle: 2.35619,
         );
+      default:
+        rect = linesCoord[winCombine];
     }
 
-    if (rect != null) {
-      return LineWidget(direction: direction, top: rect.top, left: rect.left);
-    }
-    return LineWidget(direction: direction, top: 0, left: 0);
+    return LineWidget(direction: direction, top: rect[0], left: rect[1]);
+    // return LineWidget(direction: direction, top: 0, left: 0);
   }
 
   @override
@@ -221,6 +230,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   Widget build(BuildContext context) {
     // final int selected = 1;
     // final bool turnTime = false;
+
     Setting setting = SettingProvider.of(context).setting;
     imageIndex = setting.selectedPairNumber;
     final items = board
@@ -356,11 +366,10 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
 extension GlobalKeyExtension on GlobalKey {
   Rect? get globalPaintBounds {
     final renderObject = currentContext?.findRenderObject();
-    final matrix = renderObject?.getTransformTo(null);
-
-    if (matrix != null && renderObject?.paintBounds != null) {
-      final rect = MatrixUtils.transformRect(matrix, renderObject!.paintBounds);
-      return rect;
+    final translation = renderObject?.getTransformTo(null).getTranslation();
+    if (translation != null && renderObject?.paintBounds != null) {
+      final offset = Offset(translation.x, translation.y);
+      return renderObject!.paintBounds.shift(offset);
     } else {
       return null;
     }
@@ -382,8 +391,6 @@ class LineWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final b = gameItemKey.globalPaintBounds;
-
     return Positioned(
       top: (top) + (direction == GrowDirection.horizontal ? 27 : 0),
       left: (left) - (direction == GrowDirection.horizontal ? 55 : 27),

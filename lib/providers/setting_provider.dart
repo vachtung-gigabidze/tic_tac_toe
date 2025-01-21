@@ -26,7 +26,7 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
         return s;
       }
     } catch (e) {
-      print(e);
+      // print(e);
     }
     return setting;
   }
@@ -34,9 +34,11 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
   void saveSetting(Setting newSetting) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     bool result = await preferences.setString("setting", newSetting.toJson());
-    setState(() {
-      setting = newSetting;
-    });
+    if (result) {
+      setState(() {
+        setting = newSetting;
+      });
+    }
   }
 
   // bool result = await preferences.setString("setting", s.toJson());
@@ -83,6 +85,7 @@ class SettingProvider extends InheritedWidget {
   final void Function(Setting setting) saveSetting;
 
   @override
+  // ignore: overridden_fields
   final Widget child;
 
   static SettingProvider? maybeOf(BuildContext context) {

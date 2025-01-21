@@ -1,8 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
-import 'package:tic_tac_toe/models/setting.dart';
-import 'package:tic_tac_toe/pages/game_board/page.dart';
-import 'package:tic_tac_toe/pages/select_game/page.dart';
 
 enum Result { win, lose, draw }
 
