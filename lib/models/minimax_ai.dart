@@ -7,22 +7,24 @@ class MiniMaxAi {
   int checkCount = 0;
 
   int move(board, List<int> availablePositions, GameDifficulty gameDifficulty) {
-    if (gameDifficulty == GameDifficulty.easy) {
-      var rndNum = Random().nextInt(availablePositions.length);
-      board[availablePositions[rndNum]] = SelectType.second;
-      return checkCount;
+    int smartPoint = 10;
+
+    switch (gameDifficulty) {
+      case GameDifficulty.easy:
+        smartPoint = 6;
+      case GameDifficulty.normal:
+        smartPoint = 8;
+      case GameDifficulty.hard:
+        smartPoint = 9;
     }
 
-    if (gameDifficulty == GameDifficulty.normal) {
-      var rndNum = Random().nextInt(10);
+    var rndNum = Random().nextInt(10);
 
-      if (rndNum > 7) {
-        //Тупой
-        rndNum = Random().nextInt(availablePositions.length);
-
-        board[availablePositions[rndNum]] = SelectType.second;
-        return checkCount;
-      }
+    if (rndNum > smartPoint) {
+      //Тупой
+      rndNum = Random().nextInt(availablePositions.length);
+      board[availablePositions[rndNum]] = SelectType.second;
+      return checkCount;
     }
 
     int bestScore = -999999999;
