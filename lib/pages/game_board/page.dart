@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:slide_countdown/slide_countdown.dart';
 import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/models/minimax_ai.dart';
 import 'package:tic_tac_toe/models/setting.dart';
@@ -287,11 +288,15 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                                       )
                                     ]),
                               ),
-                              if (setting.gameTime)
-                                TextWidget(
-                                  text: '${setting.duration}',
-                                  weight: FontWeight.bold,
+                              if (setting.gameTime &&
+                                  widget.gameMode == GameMode.singlePlayer)
+                                SlideCountdown(
+                                  duration: Duration(seconds: setting.duration),
                                 ),
+                              // TextWidget(
+                              //   text: '${setting.duration}',
+                              //   weight: FontWeight.bold,
+                              // ),
                               Container(
                                 height: 103,
                                 width: 103,
