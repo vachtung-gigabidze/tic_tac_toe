@@ -4,14 +4,20 @@ import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 import 'package:tic_tac_toe/ui/ui.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
 
   @override
+  State<SettingScreen> createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  @override
   Widget build(BuildContext context) {
     //final String timeOfGame = "2:00";
-    final int selected = 1;
-    final setting = SettingProvider.of(context).setting;
+    final settingProvider = SettingProvider.of(context);
+    final setting = settingProvider.setting;
+    final int selected = setting.selectedPairNumber;
     // final bool turnTime = false;
     return CupertinoPageScaffold(
         navigationBar: CupertinoNavigationBar(
@@ -40,6 +46,12 @@ class SettingScreen extends StatelessWidget {
                             size: 16,
                           ),
                           value: setting.gameTime,
+                          onChange: (bool value) {
+                            settingProvider.setting.gameTime = value ?? false;
+                            final s = settingProvider.setting;
+                            s.gameTime = value ?? false;
+                            settingProvider.saveSetting(s);
+                          },
                         ),
                         SizedBox(
                           height: 10,
@@ -77,27 +89,22 @@ class SettingScreen extends StatelessWidget {
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                     crossAxisCount: 2,
-                    children: <Widget>[
-                      SettingPairChoice(
-                        element: 1,
-                        selected: selected == 1,
-                      ),
-                      SettingPairChoice(
-                        element: 2,
-                      ),
-                      SettingPairChoice(
-                        element: 3,
-                      ),
-                      SettingPairChoice(
-                        element: 4,
-                      ),
-                      SettingPairChoice(
-                        element: 5,
-                      ),
-                      SettingPairChoice(
-                        element: 6,
-                      ),
-                    ],
+                    children: [for (var i = 1; i <= 6; i += 1) i]
+                        .map(
+                          (e) => SettingPairChoice(
+                            element: e,
+                            selected: selected == e,
+                            onPressed: () {
+                              setState(() {
+                                settingProvider.setting.selectedPairNumber = e;
+                                final s = settingProvider.setting;
+
+                                settingProvider.saveSetting(s);
+                              });
+                            },
+                          ),
+                        )
+                        .toList(),
                   ),
                 ),
               ],

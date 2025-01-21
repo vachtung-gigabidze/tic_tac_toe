@@ -6,11 +6,13 @@ class SettingPairChoice extends StatelessWidget {
   const SettingPairChoice({
     super.key,
     required this.element,
-    this.selected = false,
+    required this.selected,
+    required this.onPressed,
   });
 
   final int element;
   final bool selected;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +62,8 @@ class SettingPairChoice extends StatelessWidget {
               width: 112,
               height: 39,
               icon: null,
-              color: selected ? K.basicBlack : K.basicLightBlue,
+              onPressed: onPressed,
+              color: selected ? K.basicBlue : K.basicLightBlue,
             ),
           ],
         ),

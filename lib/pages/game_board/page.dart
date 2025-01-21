@@ -169,7 +169,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     <double>[480, 119],
     <double>[574, 119],
     <double>[386, 119],
-    <double>[386, 119],
+    <double>[386, 213],
     <double>[386, 307],
   ];
 

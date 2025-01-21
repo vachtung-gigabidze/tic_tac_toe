@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
       //   gameMode: GameMode.twoPlayer,
       //   gameDifficulty: GameDifficulty.easy,
       // ),
+      // home: const SettingScreen(),
       home: const OnboardingScreen(),
     ));
     // home: const ResultScreen(resultGame: Result.draw));
