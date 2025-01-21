@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
       // ),
       // home: const SettingScreen(),
       home: const OnboardingScreen(),
+      // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
     ));
-    // home: const ResultScreen(resultGame: Result.draw));
   }
 }
 

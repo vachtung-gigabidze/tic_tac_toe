@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 enum Result { win, lose, draw }
 
@@ -65,18 +66,7 @@ class ResultScreen extends StatelessWidget {
                             color: K.basicWhite,
                             fontFamily: '.SF UI Display',
                             fontWeight: FontWeight.w700),
-                      )
-                      //  () {
-                      //   Navigator.of(context).pop();
-                      //   // Navigator.of(context).push(
-                      //   //   CupertinoPageRoute(
-                      //   //       builder: (context) => const GameBoardScreen(
-                      //   //             gameMode: GameMode.singlePlayer,
-                      //   //             gameDifficulty: GameDifficulty.easy,
-                      //   //           )),
-                      //   //);
-                      // }
-                      ),
+                      )),
                 ),
                 SizedBox(
                   height: 12,
@@ -118,6 +108,19 @@ class ResultScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          GestureDetector(
+            child: const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: Text(
+                'go to developer web page',
+                style: TextStyle(
+                  color: CupertinoColors.link,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            ),
+            onTap: () => launchUrlString('http://www.ziidik.ru'),
           ),
         ],
       ),

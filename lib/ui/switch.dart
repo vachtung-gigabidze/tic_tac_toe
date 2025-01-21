@@ -61,7 +61,7 @@ class SwitchButtonWidget extends StatelessWidget {
       height: 60,
       width: 270,
       decoration: BoxDecoration(
-        color: K.basicWhite,
+        color: K.basicBackground,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
@@ -72,15 +72,18 @@ class SwitchButtonWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          text,
-          SwitchWidget(
-            switchValue: value,
-            onChange: onChange,
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.only(left: 20.0, right: 8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            text,
+            SwitchWidget(
+              switchValue: value,
+              onChange: onChange,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -102,7 +105,7 @@ class IconButtonWidget extends StatelessWidget {
       height: 60,
       width: 270,
       decoration: BoxDecoration(
-        color: K.basicWhite,
+        color: K.basicBackground,
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
@@ -113,12 +116,15 @@ class IconButtonWidget extends StatelessWidget {
           ),
         ],
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          text,
-          icon,
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            text,
+            icon,
+          ],
+        ),
       ),
     );
   }

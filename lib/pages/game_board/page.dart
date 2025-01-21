@@ -220,7 +220,6 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
     }
 
     return LineWidget(direction: direction, top: rect[0], left: rect[1]);
-    // return LineWidget(direction: direction, top: 0, left: 0);
   }
 
   @override
@@ -230,9 +229,6 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final int selected = 1;
-    // final bool turnTime = false;
-
     Setting setting = SettingProvider.of(context).setting;
     imageIndex = setting.selectedPairNumber;
     final items = board
@@ -291,6 +287,9 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                               if (setting.gameTime &&
                                   widget.gameMode == GameMode.singlePlayer)
                                 SlideCountdown(
+                                  decoration: BoxDecoration(
+                                      color: K.basicBlue,
+                                      borderRadius: BorderRadius.circular(10)),
                                   duration: Duration(seconds: setting.duration),
                                 ),
                               // TextWidget(
@@ -369,7 +368,6 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   }
 }
 
-//Для получения глобальных координат
 extension GlobalKeyExtension on GlobalKey {
   Rect? get globalPaintBounds {
     final renderObject = currentContext?.findRenderObject();
@@ -419,22 +417,13 @@ class DiagonalLineWidget extends StatelessWidget {
   const DiagonalLineWidget({
     super.key,
     required this.angle,
-    // required this.top,
-    // required this.left,
-    // required this.direction,
   });
-  // final double top;
-  // final double left;
-  // final GrowDirection direction;
+
   final double angle;
 
   @override
   Widget build(BuildContext context) {
-    //final b = gameItemKey.globalPaintBounds;
-
     return Positioned(
-      // top: 505,
-      // left: 22,
       top: 505,
       left: 22,
       child: Transform.rotate(

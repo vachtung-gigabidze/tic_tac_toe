@@ -37,51 +37,121 @@ class _SettingScreenState extends State<SettingScreen> {
                 SliverPadding(
                   padding: const EdgeInsets.only(top: 110),
                   sliver: SliverToBoxAdapter(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SwitchButtonWidget(
-                          text: TextWidget(
-                            text: "Turn on the time",
-                            size: 16,
-                          ),
-                          value: setting.gameTime,
-                          onChange: (bool value) {
-                            setState(() {
-                              setting.gameTime = value;
-                              final s = settingProvider.setting;
-                              s.gameTime = value;
-                              settingProvider.saveSetting(s);
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        IconButtonWidget(
-                          text: TextWidget(
-                            text: "Time for game ${setting.duration}",
-                            size: 16,
-                          ),
-                          icon: CupertinoActionSheetAction(
-                            onPressed: () {},
-                            child: Container(
-                              height: 28,
-                              width: 28,
-                              decoration: BoxDecoration(
-                                  color: K.basicLightBlue,
-                                  borderRadius: BorderRadius.circular(14)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.5),
-                                child: SizedIcon(
-                                  name: "assets/images/arrow_left.png",
-                                  size: 10,
-                                ),
+                    child: Container(
+                      // width: 308,
+                      decoration: BoxDecoration(
+                        color: K.basicWhite,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          // mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SwitchButtonWidget(
+                              text: TextWidget(
+                                text: "Game Time",
+                                size: 16,
                               ),
+                              value: setting.gameTime,
+                              onChange: (bool value) {
+                                setState(() {
+                                  setting.gameTime = value;
+                                  final s = settingProvider.setting;
+                                  s.gameTime = value;
+                                  settingProvider.saveSetting(s);
+                                });
+                              },
                             ),
-                          ),
+                            if (setting.gameTime) ...[
+                              SizedBox(
+                                height: 20,
+                              ),
+                              IconButtonWidget(
+                                text: TextWidget(
+                                  text: "Duration ",
+                                  size: 16,
+                                ),
+                                icon: TextWidget(
+                                  text: "${setting.duration}",
+                                  size: 16,
+                                  weight: FontWeight.bold,
+                                ),
+                                // CupertinoActionSheetAction(
+                                //   onPressed: () {},
+                                //   child: Container(
+                                //     height: 28,
+                                //     width: 28,
+                                //     decoration: BoxDecoration(
+                                //         color: K.basicLightBlue,
+                                //         borderRadius:
+                                //             BorderRadius.circular(14)),
+                                //     child: Padding(
+                                //       padding: const EdgeInsets.all(8.5),
+                                //       child: SizedIcon(
+                                //         name: "assets/images/arrow_left.png",
+                                //         size: 10,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                              ),
+                            ],
+                            SizedBox(
+                              height: 20,
+                            ),
+                            SwitchButtonWidget(
+                              text: TextWidget(
+                                text: "Music",
+                                size: 16,
+                              ),
+                              value: setting.musicEnable,
+                              onChange: (bool value) {
+                                setState(() {
+                                  setting.musicEnable = value;
+                                  final s = settingProvider.setting;
+                                  s.musicEnable = value;
+                                  settingProvider.saveSetting(s);
+                                });
+                              },
+                            ),
+                            if (setting.musicEnable) ...[
+                              SizedBox(
+                                height: 20,
+                              ),
+                              IconButtonWidget(
+                                text: TextWidget(
+                                  text: "Select Music ",
+                                  size: 16,
+                                ),
+                                icon: TextWidget(
+                                  text: setting.selectedMusic,
+                                  size: 16,
+                                  weight: FontWeight.bold,
+                                ),
+                                // CupertinoActionSheetAction(
+                                //   onPressed: () {},
+                                //   child: Container(
+                                //     height: 28,
+                                //     width: 28,
+                                //     decoration: BoxDecoration(
+                                //         color: K.basicLightBlue,
+                                //         borderRadius:
+                                //             BorderRadius.circular(14)),
+                                //     child: Padding(
+                                //       padding: const EdgeInsets.all(8.5),
+                                //       child: SizedIcon(
+                                //         name: "assets/images/arrow_left.png",
+                                //         size: 10,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
+                              ),
+                            ],
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
