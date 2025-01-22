@@ -1,5 +1,6 @@
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';
 
@@ -28,12 +29,12 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(brightness: Brightness.light),
       // color: CupertinoColors.black,
       debugShowCheckedModeBanner: false,
-      // home: const GameBoardScreen(
-      //   gameMode: GameMode.twoPlayer,
-      //   gameDifficulty: GameDifficulty.easy,
-      // ),
+      home: const GameBoardScreen(
+        gameMode: GameMode.singlePlayer,
+        gameDifficulty: GameDifficulty.easy,
+      ),
       // home: const SettingScreen(),
-      home: const OnboardingScreen(),
+      // home: const OnboardingScreen(),
       // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
     ));
   }

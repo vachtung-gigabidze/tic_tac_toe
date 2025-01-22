@@ -137,6 +137,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   }
 
   goToResult(SelectType howWin) {
+    stopTimer = true;
     Timer(Duration(seconds: 2), () {
       if (board
               .where((
@@ -157,6 +158,9 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                   onPlayAgain: playAgain, resultGame: Result.lose)),
         );
       } else if (howWin == SelectType.first) {
+        if (widget.gameMode == GameMode.singlePlayer) {
+          //print(gameDuration / 2);
+        }
         Navigator.of(context).push(
           CupertinoPageRoute(
               builder: (context) =>
@@ -165,6 +169,9 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
       }
     });
   }
+
+  int gameDuration = 0;
+  bool stopTimer = false;
 
   final linesCoord = [
     <double>[386, 119],
@@ -231,6 +238,7 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
   Widget build(BuildContext context) {
     Setting setting = SettingProvider.of(context).setting;
     imageIndex = setting.selectedPairNumber;
+
     final items = board
         .mapIndexed((index, element) => GameItem(
             onPressed: onPressedGameItem,
@@ -291,6 +299,19 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
                                       color: K.basicBlue,
                                       borderRadius: BorderRadius.circular(10)),
                                   duration: Duration(seconds: setting.duration),
+                                  onChanged: (value) {
+                                    // gameDuration -= value;
+                                    gameDuration += 1;
+                                    if (value == Duration.zero && !stopTimer) {
+                                      //You lose
+                                      Navigator.of(context).push(
+                                        CupertinoPageRoute(
+                                            builder: (context) => ResultScreen(
+                                                onPlayAgain: playAgain,
+                                                resultGame: Result.lose)),
+                                      );
+                                    }
+                                  },
                                 ),
                               // TextWidget(
                               //   text: '${setting.duration}',
