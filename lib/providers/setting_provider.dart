@@ -50,7 +50,10 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
         duration: 20,
         musicEnable: false,
         selectedMusic: "country",
-        selectedPairNumber: 1);
+        selectedPairNumber: 1,
+        leaderboards: [
+          Leaderboard(time: 10, gameDifficulty: GameDifficulty.easy)
+        ]);
     super.initState();
   }
 

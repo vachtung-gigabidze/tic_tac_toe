@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 import 'package:tic_tac_toe/ui/ui.dart';
 
@@ -8,13 +9,16 @@ class LeaderboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final instructions = [
-      // ["1", "Best time 00:20"],
-      // ["2", "Time 00:20"],
-      // ["3", "Time 00:20"],
-      // ["4", "Time 00:20"],
-      // ["5", "Time 00:20"],
-    ];
+    final settingProvider = SettingProvider.of(context);
+    final setting = settingProvider.setting;
+    final instructions = setting.leaderboards;
+    instructions.sort((a, b) => a.time.compareTo(b.time));
+    // ["1", "Best time 00:20"],
+    // ["2", "Time 00:20"],
+    // ["3", "Time 00:20"],
+    // ["4", "Time 00:20"],
+    // ["5", "Time 00:20"],
+
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: GestureDetector(
@@ -54,8 +58,7 @@ class LeaderboardScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                       color: K.secondaryPurple,
                                       borderRadius: BorderRadius.circular(35)),
-                                  child: Center(
-                                      child: Text(instructions[index][0])),
+                                  child: Center(child: Text('${index + 1}')),
                                 ),
                                 SizedBox(
                                   width: 10,
@@ -73,7 +76,7 @@ class LeaderboardScreen extends StatelessWidget {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        instructions[index][1],
+                                        '${index + 1 == 1 ? "Best time 00:" : "Time 00:"}${instructions[index].time}',
                                       ),
                                     ),
                                   ),
