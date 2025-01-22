@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/ui/sized_icon.dart';
 // import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 class SwitchWidget extends StatefulWidget {
@@ -125,6 +126,118 @@ class IconButtonWidget extends StatelessWidget {
             icon,
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DropDownButtonWidget<T> extends StatefulWidget {
+  const DropDownButtonWidget({
+    super.key,
+    required this.label,
+    required this.selectedItem,
+    required this.items,
+    required this.updateSetting,
+    required this.selectValue,
+  });
+
+  final Widget label;
+  final Widget selectedItem;
+  final T selectValue;
+  final List<T> items;
+  final void Function(T) updateSetting;
+
+  @override
+  State<DropDownButtonWidget<T>> createState() =>
+      _DropDownButtonWidgetState<T>();
+}
+
+class _DropDownButtonWidgetState<T> extends State<DropDownButtonWidget<T>> {
+  bool showItems = false;
+  double _targetValue = 60.0;
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Widget> items = widget.items
+        .map((e) => GestureDetector(
+              onTap: () {
+                setState(() {
+                  _targetValue = _targetValue == 215 ? 60 : 215;
+                  showItems = !showItems;
+                  T value = e;
+                  widget.updateSetting(value);
+                });
+              },
+              child: Container(
+                height: 44,
+                width: 308,
+                decoration: BoxDecoration(
+                  color: (e == widget.selectValue)
+                      ? K.basicLightBlue
+                      : K.basicBackground,
+                ),
+                child: Center(
+                  child: TextWidget(
+                    text: "$e",
+                    size: 16,
+                    weight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ))
+        .toList();
+    return TweenAnimationBuilder<double>(
+      tween: Tween<double>(begin: 0, end: _targetValue),
+      curve: Curves.elasticOut,
+      duration: const Duration(milliseconds: 900),
+      builder: (context, value, child) => Container(
+        height: value, //60
+        width: 270,
+        decoration: BoxDecoration(
+          color: K.basicBackground,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: K.basicLightBlue,
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
+        ),
+        child: CustomScrollView(slivers: [
+          SliverToBoxAdapter(
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _targetValue = _targetValue == 215 ? 60 : 215;
+                      showItems = !showItems;
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        widget.label,
+                        widget.selectedItem,
+                      ],
+                    ),
+                  ),
+                ),
+                if (showItems)
+                  Container(
+                    width: 260,
+                    height: 2,
+                    decoration: BoxDecoration(color: K.basicBlue),
+                  ),
+                if (showItems) ...items,
+              ],
+            ),
+          ),
+        ]),
       ),
     );
   }

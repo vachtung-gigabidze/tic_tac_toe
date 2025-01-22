@@ -67,34 +67,26 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 height: 20,
                               ),
-                              IconButtonWidget(
-                                text: TextWidget(
+                              DropDownButtonWidget<int>(
+                                label: TextWidget(
                                   text: "Duration ",
                                   size: 16,
                                 ),
-                                icon: TextWidget(
-                                  text: "${setting.duration}",
+                                selectedItem: TextWidget(
+                                  text: "${setting.duration} sec",
                                   size: 16,
                                   weight: FontWeight.bold,
                                 ),
-                                // CupertinoActionSheetAction(
-                                //   onPressed: () {},
-                                //   child: Container(
-                                //     height: 28,
-                                //     width: 28,
-                                //     decoration: BoxDecoration(
-                                //         color: K.basicLightBlue,
-                                //         borderRadius:
-                                //             BorderRadius.circular(14)),
-                                //     child: Padding(
-                                //       padding: const EdgeInsets.all(8.5),
-                                //       child: SizedIcon(
-                                //         name: "assets/images/arrow_left.png",
-                                //         size: 10,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
+                                selectValue: setting.duration,
+                                items: [10, 15, 20],
+                                updateSetting: (value) {
+                                  setState(() {
+                                    setting.duration = value;
+                                    final s = settingProvider.setting;
+                                    s.duration = value;
+                                    settingProvider.saveSetting(s);
+                                  });
+                                },
                               ),
                             ],
                             SizedBox(
@@ -119,34 +111,26 @@ class _SettingScreenState extends State<SettingScreen> {
                               SizedBox(
                                 height: 20,
                               ),
-                              IconButtonWidget(
-                                text: TextWidget(
+                              DropDownButtonWidget<String>(
+                                label: TextWidget(
                                   text: "Select Music ",
                                   size: 16,
                                 ),
-                                icon: TextWidget(
+                                selectedItem: TextWidget(
                                   text: setting.selectedMusic,
                                   size: 16,
                                   weight: FontWeight.bold,
                                 ),
-                                // CupertinoActionSheetAction(
-                                //   onPressed: () {},
-                                //   child: Container(
-                                //     height: 28,
-                                //     width: 28,
-                                //     decoration: BoxDecoration(
-                                //         color: K.basicLightBlue,
-                                //         borderRadius:
-                                //             BorderRadius.circular(14)),
-                                //     child: Padding(
-                                //       padding: const EdgeInsets.all(8.5),
-                                //       child: SizedIcon(
-                                //         name: "assets/images/arrow_left.png",
-                                //         size: 10,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
+                                selectValue: setting.selectedMusic,
+                                items: ["country", "donkey", "neighbour"],
+                                updateSetting: (value) {
+                                  setState(() {
+                                    setting.selectedMusic = value;
+                                    final s = settingProvider.setting;
+                                    s.selectedMusic = value;
+                                    settingProvider.saveSetting(s);
+                                  });
+                                },
                               ),
                             ],
                           ],
