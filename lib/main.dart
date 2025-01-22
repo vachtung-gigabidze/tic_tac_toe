@@ -29,12 +29,12 @@ class MyApp extends StatelessWidget {
       theme: CupertinoThemeData(brightness: Brightness.light),
       // color: CupertinoColors.black,
       debugShowCheckedModeBanner: false,
-      home: const GameBoardScreen(
-        gameMode: GameMode.singlePlayer,
-        gameDifficulty: GameDifficulty.easy,
-      ),
+      // home: const GameBoardScreen(
+      //   gameMode: GameMode.singlePlayer,
+      //   gameDifficulty: GameDifficulty.easy,
+      // ),
       // home: const SettingScreen(),
-      // home: const OnboardingScreen(),
+      home: const OnboardingScreen(),
       // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
     ));
   }
