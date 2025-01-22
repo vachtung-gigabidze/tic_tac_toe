@@ -46,8 +46,8 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
   @override
   void initState() {
     setting = Setting(
-        gameTime: true,
-        duration: 15,
+        gameTime: false,
+        duration: 20,
         musicEnable: false,
         selectedMusic: "country",
         selectedPairNumber: 1);
