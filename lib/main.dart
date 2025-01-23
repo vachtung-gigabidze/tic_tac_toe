@@ -1,19 +1,25 @@
 // import 'package:audioplayers/audioplayers.dart';
+// import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
-import 'package:tic_tac_toe/providers/audioplay_provider.dart';
+// import 'package:tic_tac_toe/providers/audioplay_provider.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized;
+  WidgetsFlutterBinding.ensureInitialized;
   // AudioPlayer player = AudioPlayer();
 
   // WidgetsBinding.instance.addPostFrameCallback((_) async {
   //   await player.setSource(AssetSource('songs/donkey.mp3'));
   //   await player.resume();
   // });
+  // AssetsAudioPlayer.newPlayer().open(
+  //   Audio("assets/songs/country.mp3"),
+  //   autoStart: true,
+  //   showNotification: true,
+  // );
   runApp(TicTacToeApp());
 }
 
@@ -25,9 +31,8 @@ class TicTacToeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return SettingStateWidget(
+      // child: const GameBoardScreen()));
 
-        // child: const GameBoardScreen()));
-        child: AudioPlayWidget(
       child: CupertinoApp(
         title: 'TicTacToe',
         theme: CupertinoThemeData(brightness: Brightness.light),
@@ -41,7 +46,7 @@ class TicTacToeApp extends StatelessWidget {
         home: const OnboardingScreen(),
         // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
       ),
-    ));
+    );
   }
 }
 
