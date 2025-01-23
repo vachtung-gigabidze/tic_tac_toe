@@ -19,4 +19,7 @@ class K {
   static Color secondaryPurple = hexToColor('#D5C1F6');
   static Color secondaryPink = hexToColor('#EF8DD1');
   static Color secondaryGray = hexToColor('#CDCFD9');
+  static List<int> settingDurations = [10, 15, 20];
+  static List<String> settingMusic = ["country", "donkey", "neighbour"];
+  static int pairCount = 6;
 }

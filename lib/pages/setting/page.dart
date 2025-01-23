@@ -78,7 +78,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   weight: FontWeight.bold,
                                 ),
                                 selectValue: setting.duration,
-                                items: [10, 15, 20],
+                                items: K.settingDurations,
                                 updateSetting: (value) {
                                   setState(() {
                                     setting.duration = value;
@@ -122,7 +122,7 @@ class _SettingScreenState extends State<SettingScreen> {
                                   weight: FontWeight.bold,
                                 ),
                                 selectValue: setting.selectedMusic,
-                                items: ["country", "donkey", "neighbour"],
+                                items: K.settingMusic,
                                 updateSetting: (value) {
                                   setState(() {
                                     setting.selectedMusic = value;
@@ -145,7 +145,7 @@ class _SettingScreenState extends State<SettingScreen> {
                     crossAxisSpacing: 20,
                     mainAxisSpacing: 20,
                     crossAxisCount: 2,
-                    children: [for (var i = 1; i <= 6; i += 1) i]
+                    children: [for (var i = 1; i <= K.pairCount; i += 1) i]
                         .map(
                           (e) => SettingPairChoice(
                             element: e,

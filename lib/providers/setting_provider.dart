@@ -52,7 +52,7 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
         selectedMusic: "country",
         selectedPairNumber: 1,
         leaderboards: [
-          Leaderboard(time: 10, gameDifficulty: GameDifficulty.easy)
+          //Leaderboard(time: 10, gameDifficulty: GameDifficulty.easy)
         ]);
     super.initState();
   }

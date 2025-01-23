@@ -136,9 +136,20 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
             )));
   }
 
+  void addLeaderboard(int time) {
+    Setting setting = SettingProvider.of(context).setting;
+
+    List<Leaderboard> leaderboard = setting.leaderboards;
+    leaderboard
+        .add(Leaderboard(time: time, gameDifficulty: widget.gameDifficulty));
+
+    setting.leaderboards = leaderboard;
+    SettingProvider.of(context).saveSetting(setting);
+  }
+
   goToResult(SelectType howWin) {
     stopTimer = true;
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 1), () {
       if (board
               .where((
                 x,
@@ -159,6 +170,8 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
         );
       } else if (howWin == SelectType.first) {
         if (widget.gameMode == GameMode.singlePlayer) {
+          //save leaderboard
+          addLeaderboard(gameDuration ~/ 2);
           //print(gameDuration / 2);
         }
         Navigator.of(context).push(

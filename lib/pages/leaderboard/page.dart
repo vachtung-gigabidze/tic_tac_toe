@@ -76,7 +76,7 @@ class LeaderboardScreen extends StatelessWidget {
                                     ),
                                     child: Center(
                                       child: Text(
-                                        '${index + 1 == 1 ? "Best time 00:" : "Time 00:"}${instructions[index].time}',
+                                        '${index + 1 == 1 ? "Best time 00:" : "Time 00:"}${instructions[index].time > 9 ? "" : "0"}${instructions[index].time}',
                                       ),
                                     ),
                                   ),
