@@ -1,40 +1,46 @@
 // import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
+import 'package:tic_tac_toe/providers/audioplay_provider.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized;
+  // WidgetsFlutterBinding.ensureInitialized;
   // AudioPlayer player = AudioPlayer();
 
   // WidgetsBinding.instance.addPostFrameCallback((_) async {
   //   await player.setSource(AssetSource('songs/donkey.mp3'));
   //   await player.resume();
   // });
-  runApp(MyApp());
+  runApp(TicTacToeApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class TicTacToeApp extends StatelessWidget {
+  const TicTacToeApp({super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
     return SettingStateWidget(
 
         // child: const GameBoardScreen()));
-        child: CupertinoApp(
-      title: 'TicTacToe',
-      theme: CupertinoThemeData(brightness: Brightness.light),
-      // color: CupertinoColors.black,
-      debugShowCheckedModeBanner: false,
-      // home: const GameBoardScreen(
-      //   gameMode: GameMode.singlePlayer,
-      //   gameDifficulty: GameDifficulty.easy,
-      // ),
-      // home: const SettingScreen(),
-      home: const OnboardingScreen(),
-      // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
+        child: AudioPlayWidget(
+      child: CupertinoApp(
+        title: 'TicTacToe',
+        theme: CupertinoThemeData(brightness: Brightness.light),
+        // color: CupertinoColors.black,
+        debugShowCheckedModeBanner: false,
+        // home: const GameBoardScreen(
+        //   gameMode: GameMode.singlePlayer,
+        //   gameDifficulty: GameDifficulty.easy,
+        // ),
+        // home: const SettingScreen(),
+        home: const OnboardingScreen(),
+        // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
+      ),
     ));
   }
 }
