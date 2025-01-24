@@ -3,6 +3,7 @@ import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/pages/how_to_play/page.dart';
 import 'package:tic_tac_toe/pages/select_game/page.dart';
 import 'package:tic_tac_toe/pages/setting/page.dart';
+import 'package:tic_tac_toe/providers/setting_provider.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
 class OnboardingScreen extends StatelessWidget {
@@ -10,6 +11,8 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final settingProvider = SettingProvider.of(context);
+    final setting = settingProvider.setting;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: PushWidget(
@@ -29,10 +32,25 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                      height: 135,
-                      width: 207,
-                      child: Image.asset("assets/images/XO.png")),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                          height: 108,
+                          width: 108,
+                          child: Image.asset(
+                            "assets/images/x_${setting.selectedPairNumber}.png",
+                            fit: BoxFit.scaleDown,
+                          )),
+                      SizedBox(
+                          height: 135,
+                          width: 135,
+                          child: Image.asset(
+                            "assets/images/o_${setting.selectedPairNumber}.png",
+                            fit: BoxFit.fill,
+                          )),
+                    ],
+                  ),
                   Text(
                     "TIC-TAC-TOE",
                     style: TextStyle(
