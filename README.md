@@ -1,16 +1,17 @@
-# tic_tac_toe
+# Tic-Tac-Toe
+![Flutter](https://img.shields.io/badge/Flutter-02569B)
+<img width="1466" alt="Screenshot at Jan 24 19-46-57" src="https://github.com/user-attachments/assets/df2b8f7a-1244-4d5f-bbf7-9658de3ed1d5" />
 
-A new Flutter project.
+This is a modern implementation of the classic Tic-Tac-Toe game for web. The project offers multiple game modes, including a single-player mode against AI with adjustable difficulty levels, as well as a two-player mode.
 
-## Getting Started
+## Features:
+- Two game modes: against AI (3 difficulty levels) and with a friend.
+- Customization of the appearance of game elements.
+- Game history tracking with data persistence.
+- Timer mode for timed games and the option to select background music.
 
-This project is a starting point for a Flutter application.
+The project demonstrates flexibility and adaptability through customizable game settings and interface, while maintaining simplicity and ease of use.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Technologies:
+- Flutter for interface design
+- SharedPeference for data storage
