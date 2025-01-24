@@ -40,7 +40,7 @@ class _TrimmingWidgetState extends State<TrimmingWidget>
         _controller.stop(canceled: false);
       },
       child: RotationTransition(
-        turns: _controller.drive(const _MySineTween(0.005)),
+        turns: _controller.drive(const _MySineTween(0.003)),
         child: widget.child,
       ),
     );

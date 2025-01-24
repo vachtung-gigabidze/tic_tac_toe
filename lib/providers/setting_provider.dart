@@ -2,10 +2,8 @@ import 'dart:collection';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tic_tac_toe/models/setting.dart';
-import 'dart:typed_data';
 
 const Set<Song> songs = {
   // Filenames with whitespace break package:audioplayers on iOS

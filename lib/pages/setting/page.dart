@@ -1,4 +1,3 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';

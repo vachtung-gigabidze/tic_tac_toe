@@ -1,13 +1,10 @@
-import 'package:audioplayers/audioplayers.dart';
 // import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
 // import 'package:tic_tac_toe/providers/audioplay_provider.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';
-import 'dart:typed_data';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized;

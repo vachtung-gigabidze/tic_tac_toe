@@ -1,13 +1,9 @@
 import 'dart:math';
-
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
-import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/how_to_play/page.dart';
 import 'package:tic_tac_toe/pages/select_game/page.dart';
 import 'package:tic_tac_toe/pages/setting/page.dart';
-import 'package:tic_tac_toe/services/shared_preferences_service.dart';
 import 'package:tic_tac_toe/ui/trimming.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
