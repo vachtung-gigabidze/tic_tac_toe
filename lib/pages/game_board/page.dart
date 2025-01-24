@@ -138,13 +138,14 @@ class _GameBoardScreenState extends State<GameBoardScreen> {
 
   void addLeaderboard(int time) {
     Setting setting = SettingProvider.of(context).setting;
+    if (time > 0 && setting.gameTime) {
+      List<Leaderboard> leaderboard = setting.leaderboards;
+      leaderboard
+          .add(Leaderboard(time: time, gameDifficulty: widget.gameDifficulty));
 
-    List<Leaderboard> leaderboard = setting.leaderboards;
-    leaderboard
-        .add(Leaderboard(time: time, gameDifficulty: widget.gameDifficulty));
-
-    setting.leaderboards = leaderboard;
-    SettingProvider.of(context).saveSetting(setting);
+      setting.leaderboards = leaderboard;
+      SettingProvider.of(context).saveSetting(setting);
+    }
   }
 
   goToResult(SelectType howWin) {
