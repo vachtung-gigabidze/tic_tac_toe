@@ -1,11 +1,13 @@
-// import 'package:audioplayers/audioplayers.dart';
+import 'package:audioplayers/audioplayers.dart';
 // import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart';
 // import 'package:flutter/services.dart';
 import 'package:tic_tac_toe/pages/pages.dart';
 // import 'package:tic_tac_toe/providers/audioplay_provider.dart';
 import 'package:tic_tac_toe/providers/setting_provider.dart';
+import 'dart:typed_data';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized;
@@ -19,7 +21,16 @@ void main() async {
   //   Audio("assets/songs/country.mp3"),
   //   autoStart: true,
   //   showNotification: true,
+  // AudioPlayer player = AudioPlayer();
+  // String audioAssets = "assets/songs/country.mp3";
+  // ByteData bytes = await rootBundle.load(audioAssets);
+  // Uint8List songsBytes =
+  //     bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+  // final urlSource = UrlSource(
+  //     Uri.dataFromBytes(songsBytes, mimeType: 'audio/mpeg').toString());
+  // player.play(urlSource);
   // );
+
   runApp(TicTacToeApp());
 }
 
@@ -43,7 +54,7 @@ class TicTacToeApp extends StatelessWidget {
         //   gameDifficulty: GameDifficulty.easy,
         // ),
         // home: const SettingScreen(),
-        home: const OnboardingScreen(),
+        home: OnboardingScreen(),
         // home: ResultScreen(onPlayAgain: () {}, resultGame: Result.draw),
       ),
     );

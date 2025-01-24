@@ -13,9 +13,9 @@ dependencies:
     sdk: flutter
  
   shared_preferences: ^2.3.5
-  # audioplayers: ^6.1.0
+  audioplayers: 6.0.0
   # flutter_soloud: ^2.1.7 
-  assets_audio_player: ^3.1.1
+  # assets_audio_player: ^3.1.1
   cupertino_icons: ^1.0.8
   collection: ^1.19.0
   slide_countdown: ^2.0.2
@@ -33,5 +33,7 @@ flutter:
   uses-material-design: false
   
   assets:    
+    - assets/sounds/
     - assets/images/
+    - assets/songs/
     - assets/songs/country.mp3

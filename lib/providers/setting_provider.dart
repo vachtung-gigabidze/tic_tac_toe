@@ -1,6 +1,33 @@
+import 'dart:collection';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tic_tac_toe/models/setting.dart';
+import 'dart:typed_data';
+
+const Set<Song> songs = {
+  // Filenames with whitespace break package:audioplayers on iOS
+  // (as of February 2022), so we use no whitespace.
+  Song('country.mp3', 'Azul', artist: 'Country'),
+  // Song('Mr_Smith-Azul.mp3', 'Azul', artist: 'Mr Smith1'),
+  // Song('Mr_Smith-Sonorus.mp3', 'Sonorus', artist: 'Mr Smith2'),
+  // Song('Mr_Smith-Sunday_Solitude.mp3', 'SundaySolitude', artist: 'Mr Smith3'),
+};
+
+class Song {
+  final String filename;
+
+  final String name;
+
+  final String? artist;
+
+  const Song(this.filename, this.name, {this.artist});
+
+  @override
+  String toString() => 'Song<$filename>';
+}
 
 class SettingStateWidget extends StatefulWidget {
   const SettingStateWidget({
@@ -17,8 +44,20 @@ class SettingStateWidget extends StatefulWidget {
 class _SettingStateWidgetState extends State<SettingStateWidget> {
   late Setting setting;
 
+  AudioPlayer player = AudioPlayer(playerId: 'musicPlayer');
+  final Queue<Song> _playlist = Queue.of(List<Song>.of(songs)..shuffle());
+
   Future<Setting> loadSetting() async {
     try {
+      // String audioAssets = "assets/sounds/draw.mp3";
+      // ByteData bytes = await rootBundle.load(audioAssets);
+      // Uint8List songsBytes =
+      //     bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+      // final urlSource = UrlSource(
+      //     Uri.dataFromBytes(songsBytes, mimeType: 'audio/mpeg').toString());
+
+      // player.play(AssetSource("assets/sounds/draw.mp3"));
+
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? v = preferences.getString("setting");
       if (v != null) {
@@ -29,6 +68,32 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
       // print(e);
     }
     return setting;
+  }
+
+  void _handleSongFinished(void _) {
+    // Move the song that just finished playing to the end of the playlist.
+    //_playlist.addLast(_playlist.removeFirst());
+    // Play the song at the beginning of the playlist.
+    print('_handleSongFinished');
+    playCurrentSongInPlaylist();
+  }
+
+  Future<void> playCurrentSongInPlaylist() async {
+    // _log.info(() => 'Playing ${_playlist.first} now.');
+    try {
+      print('play');
+      await player.play(AssetSource('songs/${_playlist.first.filename}'));
+    } catch (e) {
+      print('play $e');
+      // _log.severe('Could not play song ${_playlist.first}', e);
+    }
+  }
+
+  @override
+  void dispose() {
+    player.stop();
+    player.dispose();
+    super.dispose();
   }
 
   void saveSetting(Setting newSetting) async {
@@ -45,12 +110,13 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
 
   @override
   void initState() {
+    player.onPlayerComplete.listen(_handleSongFinished);
     setting = Setting(
         gameTime: false,
         duration: 20,
         musicEnable: false,
         selectedMusic: "country",
-        selectedPairNumber: 1,
+        selectedPairNumber: 7,
         leaderboards: [
           //Leaderboard(time: 10, gameDifficulty: GameDifficulty.easy)
         ]);

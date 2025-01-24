@@ -1,18 +1,35 @@
+import 'dart:math';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/models/setting.dart';
 import 'package:tic_tac_toe/pages/how_to_play/page.dart';
 import 'package:tic_tac_toe/pages/select_game/page.dart';
 import 'package:tic_tac_toe/pages/setting/page.dart';
-import 'package:tic_tac_toe/providers/setting_provider.dart';
+import 'package:tic_tac_toe/services/shared_preferences_service.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  Future<int> pair() async {
+    // String? value = await SharedPreferencesService.getValue<String?>("setting");
+    // if (value != null) {
+    //   final s = Setting.fromJson(value);
+    //   return s.selectedPairNumber;
+    // }
+    return Random().nextInt(K.pairCount) + 1;
+    // print("pair");
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final settingProvider = SettingProvider.of(context);
-    final setting = settingProvider.setting;
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
         leading: PushWidget(
@@ -32,25 +49,31 @@ class OnboardingScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          height: 108,
-                          width: 108,
-                          child: Image.asset(
-                            "assets/images/x_${setting.selectedPairNumber}.png",
-                            fit: BoxFit.scaleDown,
-                          )),
-                      SizedBox(
-                          height: 135,
-                          width: 135,
-                          child: Image.asset(
-                            "assets/images/o_${setting.selectedPairNumber}.png",
-                            fit: BoxFit.fill,
-                          )),
-                    ],
-                  ),
+                  FutureBuilder(
+                      future: pair(),
+                      builder: (context, AsyncSnapshot<int> snapshot) {
+                        final pair = (snapshot.hasData) ? snapshot.data : 1;
+
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                                height: 108,
+                                width: 108,
+                                child: Image.asset(
+                                  "assets/images/x_$pair.png",
+                                  fit: BoxFit.scaleDown,
+                                )),
+                            SizedBox(
+                                height: 135,
+                                width: 136,
+                                child: Image.asset(
+                                  "assets/images/o_$pair.png",
+                                  fit: BoxFit.fill,
+                                )),
+                          ],
+                        );
+                      }),
                   Text(
                     "TIC-TAC-TOE",
                     style: TextStyle(
@@ -84,6 +107,8 @@ class OnboardingScreen extends StatelessWidget {
                         fontWeight: FontWeight.w700),
                   ),
                   onPressed: () {
+                    AudioPlayer().play(AssetSource('songs/country.mp3'));
+
                     Navigator.of(context).push(
                       CupertinoPageRoute(
                           builder: (context) => const SelectGameScreen()),
