@@ -10,7 +10,7 @@ import 'dart:typed_data';
 const Set<Song> songs = {
   // Filenames with whitespace break package:audioplayers on iOS
   // (as of February 2022), so we use no whitespace.
-  Song('country.mp3', 'Azul', artist: 'Country'),
+  //Song('country.mp3', 'Azul', artist: 'Country'),
   // Song('Mr_Smith-Azul.mp3', 'Azul', artist: 'Mr Smith1'),
   // Song('Mr_Smith-Sonorus.mp3', 'Sonorus', artist: 'Mr Smith2'),
   // Song('Mr_Smith-Sunday_Solitude.mp3', 'SundaySolitude', artist: 'Mr Smith3'),
@@ -75,17 +75,43 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
     //_playlist.addLast(_playlist.removeFirst());
     // Play the song at the beginning of the playlist.
     print('_handleSongFinished');
-    playCurrentSongInPlaylist();
+    _playCurrentSongInPlaylist();
   }
 
-  Future<void> playCurrentSongInPlaylist() async {
+  Future<void> _playCurrentSongInPlaylist() async {
     // _log.info(() => 'Playing ${_playlist.first} now.');
     try {
       print('play');
-      await player.play(AssetSource('songs/${_playlist.first.filename}'));
+      await player.play(AssetSource('songs/${setting.selectedMusic}.mp3'));
     } catch (e) {
       print('play $e');
       // _log.severe('Could not play song ${_playlist.first}', e);
+    }
+  }
+
+  void _stopAllSound() {
+    player.pause();
+  }
+
+  void _startOrResumeMusic() async {
+    if (player.source == null) {
+      await _playCurrentSongInPlaylist();
+      return;
+    }
+
+    try {
+      player.resume();
+    } catch (e) {
+      _playCurrentSongInPlaylist();
+    }
+  }
+
+  void _audioOnHandler() {
+    if (setting.musicEnable) {
+      _startOrResumeMusic();
+    } else {
+      // All sound just got muted. Audio is off.
+      _stopAllSound();
     }
   }
 
@@ -104,6 +130,8 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
         setting = newSetting;
       });
     }
+
+    _audioOnHandler();
   }
 
   // bool result = await preferences.setString("setting", s.toJson());
@@ -136,6 +164,7 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
             return SettingProvider(
               saveSetting: saveSetting,
               setting: s ?? setting,
+              play: _audioOnHandler,
               child: widget.child,
             );
           }
@@ -145,13 +174,15 @@ class _SettingStateWidgetState extends State<SettingStateWidget> {
 
 class SettingProvider extends InheritedWidget {
   const SettingProvider(
-      {required this.saveSetting,
+      {required this.play,
+      required this.saveSetting,
       required this.setting,
       super.key,
       required this.child})
       : super(child: child);
   final Setting setting;
   final void Function(Setting setting) saveSetting;
+  final VoidCallback play;
 
   @override
   // ignore: overridden_fields

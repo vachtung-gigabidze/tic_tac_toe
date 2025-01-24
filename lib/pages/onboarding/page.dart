@@ -8,6 +8,7 @@ import 'package:tic_tac_toe/pages/how_to_play/page.dart';
 import 'package:tic_tac_toe/pages/select_game/page.dart';
 import 'package:tic_tac_toe/pages/setting/page.dart';
 import 'package:tic_tac_toe/services/shared_preferences_service.dart';
+import 'package:tic_tac_toe/ui/trimming.dart';
 import 'package:tic_tac_toe/ui/ui.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -27,6 +28,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Random().nextInt(K.pairCount) + 1;
     // print("pair");
   }
+
+  static const _gap = SizedBox(height: 10);
 
   @override
   Widget build(BuildContext context) {
@@ -94,28 +97,37 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: SizedBox(
               width: 348,
               height: 72,
-              child: CupertinoButton(
-                  sizeStyle: CupertinoButtonSize.large,
-                  color: K.basicBlue,
-                  borderRadius: BorderRadius.circular(36),
-                  child: Text(
-                    "Let's play",
-                    style: TextStyle(
-                        color: CupertinoColors.white,
-                        fontSize: 20,
-                        fontFamily: '.SF UI Display',
-                        fontWeight: FontWeight.w700),
-                  ),
-                  onPressed: () {
-                    AudioPlayer().play(AssetSource('songs/country.mp3'));
-
-                    Navigator.of(context).push(
-                      CupertinoPageRoute(
-                          builder: (context) => const SelectGameScreen()),
-                    );
-                  }),
+              child: TrimmingWidget(
+                child: CupertinoButton(
+                    sizeStyle: CupertinoButtonSize.large,
+                    color: K.basicBlue,
+                    borderRadius: BorderRadius.circular(36),
+                    child: Text(
+                      "Let's play",
+                      style: TextStyle(
+                          color: CupertinoColors.white,
+                          fontSize: 20,
+                          fontFamily: '.SF UI Display',
+                          fontWeight: FontWeight.w700),
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        CupertinoPageRoute(
+                            builder: (context) => const SelectGameScreen()),
+                      );
+                    }),
+              ),
             ),
           ),
+          // _gap,
+          // CupertinoButton(
+          //     sizeStyle: CupertinoButtonSize.large,
+          //     color: K.basicBlue,
+          //     borderRadius: BorderRadius.circular(36),
+          //     child: Icon(CupertinoIcons.volume_off),
+          //     onPressed: () {
+          //       AudioPlayer().play(AssetSource('songs/country.mp3'));
+          //     }),
         ],
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:tic_tac_toe/constants.dart';
+import 'package:tic_tac_toe/ui/trimming.dart';
 
 class SizedIcon extends StatelessWidget {
   const SizedIcon({
@@ -43,27 +44,29 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var c = color ?? K.basicLightBlue;
-    return SizedBox(
-      width: width,
-      height: height,
-      child: CupertinoButton(
-          padding: EdgeInsets.all(0),
-          disabledColor: c,
-          color: c,
-          borderRadius: BorderRadius.circular(30),
-          onPressed: onPressed,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (icon != null) ...[
-                icon!,
-                SizedBox(
-                  width: 10,
-                )
+    return TrimmingWidget(
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: CupertinoButton(
+            padding: EdgeInsets.all(0),
+            disabledColor: c,
+            color: c,
+            borderRadius: BorderRadius.circular(30),
+            onPressed: onPressed,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (icon != null) ...[
+                  icon!,
+                  SizedBox(
+                    width: 10,
+                  )
+                ],
+                text,
               ],
-              text,
-            ],
-          )),
+            )),
+      ),
     );
   }
 }
