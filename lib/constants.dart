@@ -21,5 +21,5 @@ class K {
   static Color secondaryGray = hexToColor('#CDCFD9');
   static List<int> settingDurations = [10, 15, 20];
   static List<String> settingMusic = ["country", "donkey", "neighbour"];
-  static int pairCount = 7;
+  static int pairCount = 8;
 }
