@@ -25,7 +25,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     // print("pair");
   }
 
-  static const _gap = SizedBox(height: 10);
+  // static const _gap = SizedBox(height: 10);
 
   @override
   Widget build(BuildContext context) {

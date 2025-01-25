@@ -7,7 +7,7 @@ class SharedPreferencesService {
       T v = preferences.getString("setting") as T;
       return v;
     } catch (e) {
-      print('Error $e');
+      // print('Error $e');
     }
 
     return "" as T;

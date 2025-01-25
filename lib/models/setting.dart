@@ -111,11 +111,15 @@ class Setting {
       musicEnable: map['musicEnable'] as bool,
       selectedMusic: map['selectedMusic'] as String,
       selectedPairNumber: map['selectedPairNumber'] as int,
-      leaderboards: List<Leaderboard>.from(
-        (map['leaderboards'] as List<int>).map<Leaderboard>(
-          (x) => Leaderboard.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
+      leaderboards: map['leaderboards'] == null
+          ? []
+          : List<Leaderboard>.from(
+              (map['leaderboards'])
+                  .map<Leaderboard>(
+                    (x) => Leaderboard.fromMap(x as Map<String, dynamic>),
+                  )
+                  .toList(),
+            ),
     );
   }
 
